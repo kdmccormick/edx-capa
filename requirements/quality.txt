@@ -20,6 +20,7 @@ lazy-object-proxy==1.4.3  # via astroid
 lxml==4.6.1               # via -r requirements/test.txt
 markupsafe==1.1.1         # via -r requirements/test.txt, jinja2
 mccabe==0.6.1             # via pylint
+mpmath==1.1.0             # via -r requirements/test.txt, sympy
 packaging==20.4           # via -r requirements/test.txt, pytest
 pbr==5.5.1                # via -r requirements/test.txt, stevedore
 pluggy==0.13.1            # via -r requirements/test.txt, pytest
@@ -41,6 +42,7 @@ six==1.15.0               # via -r requirements/test.txt, astroid, edx-lint, pac
 snowballstemmer==2.0.0    # via pydocstyle
 sqlparse==0.4.1           # via -r requirements/test.txt, django
 stevedore==3.2.2          # via -r requirements/test.txt, code-annotations
+sympy==1.6.2              # via -r requirements/test.txt
 text-unidecode==1.3       # via -r requirements/test.txt, python-slugify
 toml==0.10.2              # via -r requirements/test.txt, pytest
 wrapt==1.11.2             # via astroid
