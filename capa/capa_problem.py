@@ -33,9 +33,13 @@ import capa.responsetypes as responsetypes
 import capa.xqueue_interface as xqueue_interface
 from capa.correctmap import CorrectMap
 from capa.safe_exec import safe_exec
-from capa.util import contextualize_text, convert_files_to_filenames
-from capa.util import HTML, Text
-from capa.util import stringify_children
+from capa.util import (
+    HTML,
+    Text,
+    contextualize_text,
+    convert_files_to_filenames,
+    stringify_children,
+)
 
 # extra things displayed after "show answers" is pressed
 solution_tags = ['solution']

@@ -3,10 +3,11 @@ Utilities for use in Mako markup.
 """
 
 
-import markupsafe
 import bleach
+import markupsafe
 from lxml import etree
 from lxml.html.clean import Cleaner
+
 from mako.filters import decode
 
 # Text() can be used to declare a string as plain text, as HTML() is used

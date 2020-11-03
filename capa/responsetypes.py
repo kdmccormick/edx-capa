@@ -26,29 +26,31 @@ from collections import namedtuple
 from datetime import datetime
 from sys import float_info
 
-import html5lib
-import numpy
-import random2 as random
 import requests
 import six
-# specific library imports
-from calc import UndefinedVariable, UnmatchedParenthesis, evaluator
 from django.utils import html
 from django.utils.encoding import python_2_unicode_compatible
 from lxml import etree
 from lxml.html.soupparser import fromstring as fromstring_bs  # uses Beautiful Soup!!! FIXME?
 from pyparsing import ParseException
 from pytz import UTC
-from shapely.geometry import MultiPoint, Point
 from six import text_type
 from six.moves import map, range, zip
 
 import capa.safe_exec as safe_exec
 import capa.xqueue_interface as xqueue_interface
+import html5lib
+import numpy
+import random2 as random
+# specific library imports
+from calc import UndefinedVariable, UnmatchedParenthesis, evaluator
+from shapely.geometry import MultiPoint, Point
 
 from . import correctmap
 from .registry import TagRegistry
 from .util import (
+    HTML,
+    Text,
     compare_with_tolerance,
     contextualize_text,
     convert_files_to_filenames,
@@ -57,7 +59,6 @@ from .util import (
     get_inner_html_from_xpath,
     is_list_of_files,
     round_away_from_zero,
-    HTML, Text
 )
 
 log = logging.getLogger(__name__)

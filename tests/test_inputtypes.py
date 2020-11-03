@@ -27,7 +27,6 @@ from collections import OrderedDict
 import six
 from lxml import etree
 from lxml.html import fromstring
-from mock import ANY, patch
 from pyparsing import ParseException
 from six.moves import zip
 
@@ -35,6 +34,7 @@ from capa import inputtypes
 from capa.checker import DemoSystem
 from capa.tests.helpers import test_capa_system
 from capa.xqueue_interface import XQUEUE_TIMEOUT
+from mock import ANY, patch
 from openedx.core.djangolib.markup import HTML
 
 # just a handy shortcut

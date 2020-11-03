@@ -7,10 +7,10 @@ import os
 import textwrap
 import unittest
 
-import ddt
-import mock
 from lxml import etree
 
+import ddt
+import mock
 # Changes formatting of empty elements; import here to avoid test order dependence
 import xmodule.modulestore.xml  # pylint: disable=unused-import
 from capa.tests.helpers import new_loncapa_problem, test_capa_system

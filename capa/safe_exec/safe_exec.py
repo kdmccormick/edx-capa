@@ -3,11 +3,12 @@
 
 import hashlib
 
+import six
+from six import text_type
+
 from codejail.safe_exec import SafeExecException, json_safe
 from codejail.safe_exec import not_safe_exec as codejail_not_safe_exec
 from codejail.safe_exec import safe_exec as codejail_safe_exec
-import six
-from six import text_type
 
 from . import lazymod
 

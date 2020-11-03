@@ -48,20 +48,20 @@ import time
 from datetime import datetime
 
 import bleach
-import html5lib
 import pyparsing
 import six
-from calc.preview import latex_preview
-from chem import chemcalc
 from django.utils.encoding import python_2_unicode_compatible
 from lxml import etree
 from six import text_type
 
+import html5lib
+from calc.preview import latex_preview
 from capa.xqueue_interface import XQUEUE_TIMEOUT
+from chem import chemcalc
 
 from . import xqueue_interface
 from .registry import TagRegistry
-from .util import sanitize_html, HTML, Text, stringify_children
+from .util import HTML, Text, sanitize_html, stringify_children
 
 log = logging.getLogger(__name__)
 

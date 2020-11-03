@@ -4,16 +4,19 @@ Utility functions for capa.
 
 
 import logging
+import math
 import re
 from cmath import isinf, isnan
 from decimal import Decimal
 
 import bleach
+import markupsafe
 import six
-from calc import evaluator
 from lxml import etree
-import math
+from lxml.html.clean import Cleaner
 
+from calc import evaluator
+from mako.filters import decode
 
 #-----------------------------------------------------------------------------
 #
@@ -248,7 +251,6 @@ def round_away_from_zero(number, digits=0):
 # -*- coding: utf-8 -*-
 
 
-from lxml import etree
 
 
 def stringify_children(node):
@@ -278,10 +280,6 @@ def stringify_children(node):
     return u''.join([part for part in parts if part])
 
 
-import markupsafe
-import bleach
-from lxml.html.clean import Cleaner
-from mako.filters import decode
 
 # Text() can be used to declare a string as plain text, as HTML() is used
 # for HTML.  It simply wraps markupsafe's escape, which will HTML-escape if

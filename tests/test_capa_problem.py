@@ -6,14 +6,14 @@ Test capa problem.
 import textwrap
 import unittest
 
-import ddt
 import six
 from lxml import etree
 from markupsafe import Markup
-from mock import patch
 
+import ddt
 from capa.responsetypes import LoncapaProblemError
 from capa.tests.helpers import new_loncapa_problem
+from mock import patch
 from openedx.core.djangolib.markup import HTML
 
 

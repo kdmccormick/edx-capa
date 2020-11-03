@@ -7,14 +7,14 @@ import os
 import os.path
 import xml.sax.saxutils as saxutils
 
-import fs.osfs
 import six
-from mako.lookup import TemplateLookup
-from mock import MagicMock, Mock
 from path import Path
 
+import fs.osfs
 from capa.capa_problem import LoncapaProblem, LoncapaSystem
 from capa.inputtypes import Status
+from mako.lookup import TemplateLookup
+from mock import MagicMock, Mock
 
 TEST_DIR = os.path.dirname(os.path.realpath(__file__))
 

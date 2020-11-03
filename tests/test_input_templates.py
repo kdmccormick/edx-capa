@@ -8,11 +8,11 @@ import unittest
 from collections import OrderedDict
 
 from lxml import etree
-from mako import exceptions
 from six.moves import range
 
 from capa.inputtypes import Status
 from capa.tests.helpers import capa_render_template
+from mako import exceptions
 from openedx.core.djangolib.markup import HTML
 from xmodule.stringify import stringify_children
 

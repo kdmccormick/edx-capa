@@ -12,15 +12,15 @@ import unittest
 import zipfile
 from datetime import datetime
 
-import calc
-import mock
 import pyparsing
-import random2 as random
 import requests
 import six
 from pytz import UTC
 from six import text_type
 
+import calc
+import mock
+import random2 as random
 from capa.correctmap import CorrectMap
 from capa.responsetypes import LoncapaProblemError, ResponseError, StudentInputError
 from capa.tests.helpers import load_fixture, new_loncapa_problem, test_capa_system
@@ -38,7 +38,7 @@ from capa.tests.response_xml_factory import (
     SchematicResponseXMLFactory,
     StringResponseXMLFactory,
     SymbolicResponseXMLFactory,
-    TrueFalseResponseXMLFactory
+    TrueFalseResponseXMLFactory,
 )
 from capa.util import convert_files_to_filenames
 from capa.xqueue_interface import dateformat
