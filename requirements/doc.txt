@@ -8,7 +8,7 @@ alabaster==0.7.12         # via sphinx
 asgiref==3.3.0            # via -r requirements/test.txt, django
 attrs==20.2.0             # via -r requirements/test.txt, pytest
 babel==2.8.0              # via sphinx
-bleach==3.2.1             # via readme-renderer
+bleach==3.2.1             # via -r requirements/test.txt, readme-renderer
 certifi==2020.6.20        # via requests
 chardet==3.0.4            # via doc8, requests
 click==7.1.2              # via -r requirements/test.txt, code-annotations
@@ -55,7 +55,7 @@ sympy==1.6.2              # via -r requirements/test.txt
 text-unidecode==1.3       # via -r requirements/test.txt, python-slugify
 toml==0.10.2              # via -r requirements/test.txt, pytest
 urllib3==1.25.11          # via requests
-webencodings==0.5.1       # via bleach
+webencodings==0.5.1       # via -r requirements/test.txt, bleach
 
 # The following packages are considered to be unsafe in a requirements file:
 # setuptools

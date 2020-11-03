@@ -1,6 +1,8 @@
 # Core requirements for using this application
 -c constraints.txt
 
-lxml
-pytz
-sympy
+bleach                              # Allowed-list-based HTML sanitizing library that escapes or strips markup and attributes.
+lxml                                # Processing XML and HTML.
+markupsafe                          # Markup santizing.
+pytz                                # Timezone database.
+sympy                               # Symbolic mathematics.

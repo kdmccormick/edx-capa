@@ -4,7 +4,13 @@
 #
 #    make upgrade
 #
+bleach==3.2.1             # via -r requirements/base.in
 lxml==4.6.1               # via -r requirements/base.in
+markupsafe==1.1.1         # via -r requirements/base.in
 mpmath==1.1.0             # via sympy
+packaging==20.4           # via bleach
+pyparsing==2.4.7          # via packaging
 pytz==2020.4              # via -r requirements/base.in
+six==1.15.0               # via bleach, packaging
 sympy==1.6.2              # via -r requirements/base.in
+webencodings==0.5.1       # via bleach
