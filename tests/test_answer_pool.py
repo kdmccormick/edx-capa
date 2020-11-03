@@ -8,7 +8,7 @@ import textwrap
 import unittest
 
 from capa.responsetypes import LoncapaProblemError
-from capa.tests.helpers import new_loncapa_problem, test_capa_system
+from test_utils.helpers import new_loncapa_problem, test_capa_system
 
 
 class CapaAnswerPoolTest(unittest.TestCase):

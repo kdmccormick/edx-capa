@@ -14,10 +14,10 @@ import mock
 
 # Changes formatting of empty elements; import here to avoid test order dependence
 import xmodule.modulestore.xml  # pylint: disable=unused-import
-from capa.tests.helpers import new_loncapa_problem, test_capa_system
+from test_utils.helpers import new_loncapa_problem, test_capa_system
 from openedx.core.djangolib.markup import HTML
 
-from .response_xml_factory import CustomResponseXMLFactory, StringResponseXMLFactory
+from test_utils.response_xml_factory import CustomResponseXMLFactory, StringResponseXMLFactory
 
 
 @ddt.ddt

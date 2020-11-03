@@ -9,7 +9,7 @@ import unittest
 from lxml import etree
 
 import ddt
-from capa.tests.helpers import test_capa_system
+from test_utils.helpers import test_capa_system
 from capa.util import (
     compare_with_tolerance,
     contextualize_text,

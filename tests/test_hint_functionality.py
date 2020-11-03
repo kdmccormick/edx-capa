@@ -6,7 +6,7 @@ Tests of extended hints
 
 import unittest
 
-from capa.tests.helpers import load_fixture, new_loncapa_problem
+from test_utils.helpers import load_fixture, new_loncapa_problem
 from ddt import data, ddt, unpack
 
 # With the use of ddt, some of the data expected_string cases below are naturally long stretches
