@@ -1,5 +1,5 @@
 <%page expression_filter="h"/>
-<%! from openedx.core.djangolib.markup import HTML %>
+<%! from capa.util import HTML %>
 <% doinline = "inline" if inline else "" %>
 
 <div id="inputtype_${id}" class="${'text-input-dynamath' if do_math else ''} capa_inputtype ${doinline} textline">

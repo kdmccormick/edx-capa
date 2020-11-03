@@ -45,9 +45,6 @@ from six.moves import map, range, zip
 
 import capa.safe_exec as safe_exec
 import capa.xqueue_interface as xqueue_interface
-from openedx.core.djangolib.markup import HTML, Text
-from openedx.core.lib import edx_six
-from openedx.core.lib.grade_utils import round_away_from_zero
 
 from . import correctmap
 from .registry import TagRegistry
@@ -58,7 +55,9 @@ from .util import (
     default_tolerance,
     find_with_default,
     get_inner_html_from_xpath,
-    is_list_of_files
+    is_list_of_files,
+    round_away_from_zero,
+    HTML, Text
 )
 
 log = logging.getLogger(__name__)

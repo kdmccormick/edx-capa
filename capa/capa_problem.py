@@ -34,9 +34,8 @@ import capa.xqueue_interface as xqueue_interface
 from capa.correctmap import CorrectMap
 from capa.safe_exec import safe_exec
 from capa.util import contextualize_text, convert_files_to_filenames
-from openedx.core.djangolib.markup import HTML, Text
-from openedx.core.lib.edx_six import get_gettext
-from xmodule.stringify import stringify_children
+from capa.util import HTML, Text
+from capa.util import stringify_children
 
 # extra things displayed after "show answers" is pressed
 solution_tags = ['solution']
@@ -484,7 +483,7 @@ class LoncapaProblem(object):
             # an earlier submission, so for now skip these entirely.
             # TODO: figure out where to get file submissions when rescoring.
             if 'filesubmission' in responder.allowed_inputfields and student_answers is None:
-                _ = get_gettext(self.capa_system.i18n)
+                _ = self.capa_system.i18n.gettext
                 raise Exception(_(u"Cannot rescore problems with possible file submissions"))
 
             # use 'student_answers' only if it is provided, and if it might contain a file

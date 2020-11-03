@@ -1,5 +1,5 @@
 <%page expression_filter="h"/>
-<%! from openedx.core.djangolib.markup import HTML %>
+<%! from capa.util import HTML %>
 <% doinline = 'style="display:inline-block;vertical-align:top"' if inline else "" %>
 <div id="formulaequationinput_${id}" class="inputtype formulaequationinput" ${doinline | n, decode.utf8}>
     <div class="${status.classname}">

@@ -58,13 +58,10 @@ from lxml import etree
 from six import text_type
 
 from capa.xqueue_interface import XQUEUE_TIMEOUT
-from openedx.core.djangolib.markup import HTML, Text
-from openedx.core.lib import edx_six
-from xmodule.stringify import stringify_children
 
 from . import xqueue_interface
 from .registry import TagRegistry
-from .util import sanitize_html
+from .util import sanitize_html, HTML, Text, stringify_children
 
 log = logging.getLogger(__name__)
 
@@ -328,7 +325,7 @@ class InputTypeBase(object):
         context = {
             'id': self.input_id,
             'value': self.value,
-            'status': Status(self.status, edx_six.get_gettext(self.capa_system.i18n)),
+            'status': Status(self.status, self.capa_system.i18n.gettext),
             'msg': self.msg,
             'response_data': self.response_data,
             'STATIC_URL': self.capa_system.STATIC_URL,
