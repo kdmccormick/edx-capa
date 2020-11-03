@@ -12,9 +12,9 @@ from markupsafe import Markup
 
 import ddt
 from capa.responsetypes import LoncapaProblemError
-from test_utils.helpers import new_loncapa_problem
 from mock import patch
 from openedx.core.djangolib.markup import HTML
+from test_utils.helpers import new_loncapa_problem
 
 
 @ddt.ddt

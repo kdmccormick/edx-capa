@@ -18,7 +18,6 @@ import os
 import re
 import string
 import unicodedata
-
 # import subprocess
 from copy import deepcopy
 from functools import reduce

@@ -32,10 +32,10 @@ from six.moves import zip
 
 from capa import inputtypes
 from capa.checker import DemoSystem
-from test_utils.helpers import test_capa_system
 from capa.xqueue_interface import XQUEUE_TIMEOUT
 from mock import ANY, patch
 from openedx.core.djangolib.markup import HTML
+from test_utils.helpers import test_capa_system
 
 # just a handy shortcut
 lookup_tag = inputtypes.registry.get_class_for_tag

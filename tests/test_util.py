@@ -9,7 +9,6 @@ import unittest
 from lxml import etree
 
 import ddt
-from test_utils.helpers import test_capa_system
 from capa.util import (
     compare_with_tolerance,
     contextualize_text,
@@ -17,6 +16,7 @@ from capa.util import (
     remove_markup,
     sanitize_html,
 )
+from test_utils.helpers import test_capa_system
 
 
 @ddt.ddt

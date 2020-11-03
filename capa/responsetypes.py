@@ -12,7 +12,6 @@ Used by capa_problem.py
 
 
 import abc
-
 # TODO: Refactor this code and fix this issue.
 import inspect
 import json
@@ -32,9 +31,7 @@ import six
 from django.utils import html
 from django.utils.encoding import python_2_unicode_compatible
 from lxml import etree
-from lxml.html.soupparser import (
-    fromstring as fromstring_bs,
-)  # uses Beautiful Soup!!! FIXME?
+from lxml.html.soupparser import fromstring as fromstring_bs  # uses Beautiful Soup!!! FIXME?
 from pyparsing import ParseException
 from pytz import UTC
 from six import text_type
@@ -45,7 +42,6 @@ import capa.xqueue_interface as xqueue_interface
 import html5lib
 import numpy
 import random2 as random
-
 # specific library imports
 from calc import UndefinedVariable, UnmatchedParenthesis, evaluator
 from shapely.geometry import MultiPoint, Point

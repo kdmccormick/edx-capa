@@ -11,9 +11,9 @@ from lxml import etree
 from six.moves import range
 
 from capa.inputtypes import Status
-from test_utils.helpers import capa_render_template
 from mako import exceptions
 from openedx.core.djangolib.markup import HTML
+from test_utils.helpers import capa_render_template
 from xmodule.stringify import stringify_children
 
 

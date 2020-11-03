@@ -6,8 +6,8 @@ Tests of extended hints
 
 import unittest
 
-from test_utils.helpers import load_fixture, new_loncapa_problem
 from ddt import data, ddt, unpack
+from test_utils.helpers import load_fixture, new_loncapa_problem
 
 # With the use of ddt, some of the data expected_string cases below are naturally long stretches
 # of text text without whitespace. I think it's best to leave such lines intact

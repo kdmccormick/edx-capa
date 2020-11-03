@@ -23,6 +23,8 @@ import mock
 import random2 as random
 from capa.correctmap import CorrectMap
 from capa.responsetypes import LoncapaProblemError, ResponseError, StudentInputError
+from capa.util import convert_files_to_filenames
+from capa.xqueue_interface import dateformat
 from test_utils.helpers import load_fixture, new_loncapa_problem, test_capa_system
 from test_utils.response_xml_factory import (
     AnnotationResponseXMLFactory,
@@ -40,8 +42,6 @@ from test_utils.response_xml_factory import (
     SymbolicResponseXMLFactory,
     TrueFalseResponseXMLFactory,
 )
-from capa.util import convert_files_to_filenames
-from capa.xqueue_interface import dateformat
 
 
 class ResponseTest(unittest.TestCase):
