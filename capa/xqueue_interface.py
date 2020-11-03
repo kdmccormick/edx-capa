@@ -11,9 +11,9 @@ import requests
 import six
 
 log = logging.getLogger(__name__)
-dateformat = '%Y%m%d%H%M%S'
+dateformat = "%Y%m%d%H%M%S"
 
-XQUEUE_METRIC_NAME = 'edxapp.xqueue'
+XQUEUE_METRIC_NAME = "edxapp.xqueue"
 
 # Wait time for response from Xqueue.
 XQUEUE_TIMEOUT = 35  # seconds
@@ -40,11 +40,13 @@ def make_xheader(lms_callback_url, lms_key, queue_name):
           'queue_name': designate a specific queue within xqueue server, e.g. 'MITx-6.00x' (string)
         }
     """
-    return json.dumps({
-        'lms_callback_url': lms_callback_url,
-        'lms_key': lms_key,
-        'queue_name': queue_name
-    })
+    return json.dumps(
+        {
+            "lms_callback_url": lms_callback_url,
+            "lms_key": lms_key,
+            "queue_name": queue_name,
+        }
+    )
 
 
 def parse_xreply(xreply):
@@ -58,10 +60,10 @@ def parse_xreply(xreply):
         xreply = json.loads(xreply)
     except ValueError as err:
         log.error(err)
-        return (1, 'unexpected reply from server')
+        return (1, "unexpected reply from server")
 
-    return_code = xreply['return_code']
-    content = xreply['content']
+    return_code = xreply["return_code"]
+    content = xreply["content"]
 
     return (return_code, content)
 
@@ -93,13 +95,13 @@ class XQueueInterface(object):
 
         # log the send to xqueue
         header_info = json.loads(header)
-        queue_name = header_info.get('queue_name', u'')
+        queue_name = header_info.get("queue_name", u"")
 
         # Attempt to send to queue
         (error, msg) = self._send_to_queue(header, body, files_to_upload)
 
         # Log in, then try again
-        if error and (msg == 'login_required'):
+        if error and (msg == "login_required"):
             (error, content) = self._login()
             if error != 0:
                 # when the login fails
@@ -114,23 +116,17 @@ class XQueueInterface(object):
         return error, msg
 
     def _login(self):
-        payload = {
-            'username': self.auth['username'],
-            'password': self.auth['password']
-        }
-        return self._http_post(self.url + '/xqueue/login/', payload)
+        payload = {"username": self.auth["username"], "password": self.auth["password"]}
+        return self._http_post(self.url + "/xqueue/login/", payload)
 
     def _send_to_queue(self, header, body, files_to_upload):
-        payload = {
-            'xqueue_header': header,
-            'xqueue_body': body
-        }
+        payload = {"xqueue_header": header, "xqueue_body": body}
         files = {}
         if files_to_upload is not None:
             for f in files_to_upload:
                 files.update({f.name: f})
 
-        return self._http_post(self.url + '/xqueue/submit/', payload, files=files)
+        return self._http_post(self.url + "/xqueue/submit/", payload, files=files)
 
     def _http_post(self, url, data, files=None):
         try:
@@ -139,13 +135,13 @@ class XQueueInterface(object):
             )
         except requests.exceptions.ConnectionError as err:
             log.error(err)
-            return 1, 'cannot connect to server'
+            return 1, "cannot connect to server"
 
         except requests.exceptions.ReadTimeout as err:
             log.error(err)
-            return 1, 'failed to read from the server'
+            return 1, "failed to read from the server"
 
         if response.status_code not in [200]:
-            return 1, 'unexpected HTTP status code [%d]' % response.status_code
+            return 1, "unexpected HTTP status code [%d]" % response.status_code
 
         return parse_xreply(response.text)

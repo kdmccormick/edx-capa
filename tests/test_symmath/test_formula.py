@@ -11,27 +11,29 @@ from . import formula
 
 
 def stripXML(xml):
-    xml = xml.replace('\n', '')
-    xml = re.sub(r'\> +\<', '><', xml)
+    xml = xml.replace("\n", "")
+    xml = re.sub(r"\> +\<", "><", xml)
     return xml
 
 
 class FormulaTest(unittest.TestCase):
     # for readability later
-    mathml_start = '<math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true">'
-    mathml_end = '</mstyle></math>'
+    mathml_start = (
+        '<math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle displaystyle="true">'
+    )
+    mathml_end = "</mstyle></math>"
 
     def setUp(self):
         super(FormulaTest, self).setUp()
-        self.formulaInstance = formula('')
+        self.formulaInstance = formula("")
 
     def test_replace_mathvariants(self):
-        expr = '''
+        expr = """
 <mstyle mathvariant="script">
   <mi>N</mi>
-</mstyle>'''
+</mstyle>"""
 
-        expected = '<mi>scriptN</mi>'
+        expected = "<mi>scriptN</mi>"
 
         # wrap
         expr = stripXML(self.mathml_start + expr + self.mathml_end)
@@ -43,19 +45,19 @@ class FormulaTest(unittest.TestCase):
         test = etree.tostring(xml)
 
         # success?
-        self.assertEqual(test.decode('utf-8'), expected)
+        self.assertEqual(test.decode("utf-8"), expected)
 
     def test_fix_simple_superscripts(self):
-        expr = '''
+        expr = """
 <msup>
   <mi>a</mi>
   <mrow>
     <mo>&#x200B;</mo>
     <mi>b</mi>
   </mrow>
-</msup>'''
+</msup>"""
 
-        expected = '<mi>a__b</mi>'
+        expected = "<mi>a__b</mi>"
 
         # wrap
         expr = stripXML(self.mathml_start + expr + self.mathml_end)
@@ -67,10 +69,10 @@ class FormulaTest(unittest.TestCase):
         test = etree.tostring(xml)
 
         # success?
-        self.assertEqual(test.decode('utf-8'), expected)
+        self.assertEqual(test.decode("utf-8"), expected)
 
     def test_fix_complex_superscripts(self):
-        expr = '''
+        expr = """
 <msubsup>
   <mi>a</mi>
   <mi>b</mi>
@@ -78,9 +80,9 @@ class FormulaTest(unittest.TestCase):
     <mo>&#x200B;</mo>
     <mi>c</mi>
   </mrow>
-</msubsup>'''
+</msubsup>"""
 
-        expected = '<mi>a_b__c</mi>'
+        expected = "<mi>a_b__c</mi>"
 
         # wrap
         expr = stripXML(self.mathml_start + expr + self.mathml_end)
@@ -92,17 +94,17 @@ class FormulaTest(unittest.TestCase):
         test = etree.tostring(xml)
 
         # success?
-        self.assertEqual(test.decode('utf-8'), expected)
+        self.assertEqual(test.decode("utf-8"), expected)
 
     def test_fix_msubsup(self):
-        expr = '''
+        expr = """
 <msubsup>
   <mi>a</mi>
   <mi>b</mi>
   <mi>c</mi>
-</msubsup>'''
+</msubsup>"""
 
-        expected = '<msup><mi>a_b</mi><mi>c</mi></msup>'  # which is (a_b)^c
+        expected = "<msup><mi>a_b</mi><mi>c</mi></msup>"  # which is (a_b)^c
 
         # wrap
         expr = stripXML(self.mathml_start + expr + self.mathml_end)
@@ -114,4 +116,4 @@ class FormulaTest(unittest.TestCase):
         test = etree.tostring(xml)
 
         # success?
-        self.assertEqual(test.decode('utf-8'), expected)
+        self.assertEqual(test.decode("utf-8"), expected)

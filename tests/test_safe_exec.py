@@ -22,19 +22,19 @@ class TestSafeExec(unittest.TestCase):
     def test_set_values(self):
         g = {}
         safe_exec("a = 17", g)
-        self.assertEqual(g['a'], 17)
+        self.assertEqual(g["a"], 17)
 
     def test_division(self):
         g = {}
         # Future division: 1/2 is 0.5.
         safe_exec("a = 1/2", g)
-        self.assertEqual(g['a'], 0.5)
+        self.assertEqual(g["a"], 0.5)
 
     def test_assumed_imports(self):
         g = {}
         # Math is always available.
         safe_exec("a = int(math.pi)", g)
-        self.assertEqual(g['a'], 3)
+        self.assertEqual(g["a"], 3)
 
     def test_random_seeding(self):
         g = {}
@@ -43,11 +43,13 @@ class TestSafeExec(unittest.TestCase):
 
         # Without a seed, the results are unpredictable
         safe_exec("rnums = [random.randint(0, 999) for _ in xrange(100)]", g)
-        self.assertNotEqual(g['rnums'], rnums)
+        self.assertNotEqual(g["rnums"], rnums)
 
         # With a seed, the results are predictable
-        safe_exec("rnums = [random.randint(0, 999) for _ in xrange(100)]", g, random_seed=17)
-        self.assertEqual(g['rnums'], rnums)
+        safe_exec(
+            "rnums = [random.randint(0, 999) for _ in xrange(100)]", g, random_seed=17
+        )
+        self.assertEqual(g["rnums"], rnums)
 
     def test_random_is_still_importable(self):
         g = {}
@@ -56,18 +58,16 @@ class TestSafeExec(unittest.TestCase):
 
         # With a seed, the results are predictable even from the random module
         safe_exec(
-            "import random\n"
-            "rnums = [random.randint(0, 999) for _ in xrange(100)]\n",
-            g, random_seed=17)
-        self.assertEqual(g['rnums'], rnums)
+            "import random\n" "rnums = [random.randint(0, 999) for _ in xrange(100)]\n",
+            g,
+            random_seed=17,
+        )
+        self.assertEqual(g["rnums"], rnums)
 
     def test_python_lib(self):
         pylib = os.path.dirname(__file__) + "/test_files/pylib"
         g = {}
-        safe_exec(
-            "import constant; a = constant.THE_CONST",
-            g, python_path=[pylib]
-        )
+        safe_exec("import constant; a = constant.THE_CONST", g, python_path=[pylib])
 
     def test_raising_exceptions(self):
         g = {}
@@ -91,7 +91,7 @@ class TestSafeOrNot(unittest.TestCase):
     def test_can_do_something_forbidden_if_run_unsafely(self):
         g = {}
         safe_exec("import os; files = os.listdir('/')", g, unsafely=True)
-        self.assertEqual(g['files'], os.listdir('/'))
+        self.assertEqual(g["files"], os.listdir("/"))
 
 
 class DictCache(object):
@@ -120,16 +120,16 @@ class TestSafeExecCaching(unittest.TestCase):
 
         # Cache miss
         safe_exec("a = int(math.pi)", g, cache=DictCache(cache))
-        self.assertEqual(g['a'], 3)
+        self.assertEqual(g["a"], 3)
         # A result has been cached
-        self.assertEqual(list(cache.values())[0], (None, {'a': 3}))
+        self.assertEqual(list(cache.values())[0], (None, {"a": 3}))
 
         # Fiddle with the cache, then try it again.
-        cache[list(cache.keys())[0]] = (None, {'a': 17})
+        cache[list(cache.keys())[0]] = (None, {"a": 17})
 
         g = {}
         safe_exec("a = int(math.pi)", g, cache=DictCache(cache))
-        self.assertEqual(g['a'], 17)
+        self.assertEqual(g["a"], 17)
 
     def test_cache_large_code_chunk(self):
         # Caching used to die on memcache with more than 250 bytes of code.
@@ -139,7 +139,7 @@ class TestSafeExecCaching(unittest.TestCase):
         g = {}
         cache = {}
         safe_exec(code, g, cache=DictCache(cache))
-        self.assertEqual(g['a'], 12345)
+        self.assertEqual(g["a"], 12345)
 
     def test_cache_exceptions(self):
         # Used to be that running code that raised an exception didn't cache
@@ -166,9 +166,9 @@ class TestSafeExecCaching(unittest.TestCase):
         self.assertEqual("Hey there!", cache_exc_msg)
 
         # Change it again, now no exception!
-        cache[list(cache.keys())[0]] = (None, {'a': 17})
+        cache[list(cache.keys())[0]] = (None, {"a": 17})
         safe_exec(code, g, cache=DictCache(cache))
-        self.assertEqual(g['a'], 17)
+        self.assertEqual(g["a"], 17)
 
     def test_unicode_submission(self):
         # Check that using non-ASCII unicode does not raise an encoding error.
@@ -178,7 +178,9 @@ class TestSafeExecCaching(unittest.TestCase):
             try:
                 safe_exec(code_with_unichr, {}, cache=DictCache({}))
             except UnicodeEncodeError:
-                self.fail("Tried executing code with non-ASCII unicode: {0}".format(code))
+                self.fail(
+                    "Tried executing code with non-ASCII unicode: {0}".format(code)
+                )
 
 
 class TestUpdateHash(unittest.TestCase):
@@ -223,8 +225,8 @@ class TestUpdateHash(unittest.TestCase):
         self.assertNotEqual(h1, hs1)
 
     def test_list_ordering(self):
-        h1 = self.hash_obj({'a': [1, 2, 3]})
-        h2 = self.hash_obj({'a': [3, 2, 1]})
+        h1 = self.hash_obj({"a": [1, 2, 3]})
+        h2 = self.hash_obj({"a": [3, 2, 1]})
         self.assertNotEqual(h1, h2)
 
     def test_dict_ordering(self):
@@ -235,8 +237,8 @@ class TestUpdateHash(unittest.TestCase):
 
     def test_deep_ordering(self):
         d1, d2 = self.equal_but_different_dicts()
-        o1 = {'a': [1, 2, [d1], 3, 4]}
-        o2 = {'a': [1, 2, [d2], 3, 4]}
+        o1 = {"a": [1, 2, [d1], 3, 4]}
+        o2 = {"a": [1, 2, [d2], 3, 4]}
         h1 = self.hash_obj(o1)
         h2 = self.hash_obj(o2)
         self.assertEqual(h1, h2)
@@ -244,7 +246,8 @@ class TestUpdateHash(unittest.TestCase):
 
 class TestRealProblems(unittest.TestCase):
     def test_802x(self):
-        code = textwrap.dedent("""\
+        code = textwrap.dedent(
+            """\
             import math
             import random
             import numpy
@@ -304,7 +307,8 @@ class TestRealProblems(unittest.TestCase):
             aVAP='%.2e' % VAP
             aVPN='%.2e' % VPN
             aVGD='%.2e' % VGD
-            """)
+            """
+        )
         g = {}
         safe_exec(code, g)
         self.assertIn("aVAP", g)

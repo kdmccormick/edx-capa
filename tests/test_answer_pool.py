@@ -13,12 +13,14 @@ from capa.tests.helpers import new_loncapa_problem, test_capa_system
 
 class CapaAnswerPoolTest(unittest.TestCase):
     """Capa Answer Pool Test"""
+
     def setUp(self):
         super(CapaAnswerPoolTest, self).setUp()
         self.system = test_capa_system()
 
     # XML problem setup used by a few tests.
-    common_question_xml = textwrap.dedent("""
+    common_question_xml = textwrap.dedent(
+        """
         <problem>
 
         <p>What is the correct answer?</p>
@@ -50,35 +52,49 @@ class CapaAnswerPoolTest(unittest.TestCase):
             </solution>
         </solutionset>
     </problem>
-    """)
+    """
+    )
 
     def test_answer_pool_4_choices_1_multiplechoiceresponse_seed1(self):
         problem = new_loncapa_problem(self.common_question_xml, seed=723)
         the_html = problem.get_html()
         # [('choice_3', u'wrong-3'), ('choice_5', u'correct-2'), ('choice_1', u'wrong-2'), ('choice_4', u'wrong-4')]
-        self.assertRegex(the_html, r"<div>.*\[.*'wrong-3'.*'correct-2'.*'wrong-2'.*'wrong-4'.*\].*</div>")
+        self.assertRegex(
+            the_html,
+            r"<div>.*\[.*'wrong-3'.*'correct-2'.*'wrong-2'.*'wrong-4'.*\].*</div>",
+        )
         self.assertRegex(the_html, r"<div>\{.*'1_solution_2'.*\}</div>")
-        self.assertEqual(the_html, problem.get_html(), 'should be able to call get_html() twice')
+        self.assertEqual(
+            the_html, problem.get_html(), "should be able to call get_html() twice"
+        )
         # Check about masking
         response = list(problem.responders.values())[0]
         self.assertFalse(response.has_mask())
         self.assertTrue(response.has_answerpool())
-        self.assertEqual(response.unmask_order(), ['choice_3', 'choice_5', 'choice_1', 'choice_4'])
+        self.assertEqual(
+            response.unmask_order(), ["choice_3", "choice_5", "choice_1", "choice_4"]
+        )
 
     def test_answer_pool_4_choices_1_multiplechoiceresponse_seed2(self):
         problem = new_loncapa_problem(self.common_question_xml, seed=9)
         the_html = problem.get_html()
         # [('choice_0', u'wrong-1'), ('choice_4', u'wrong-4'), ('choice_3', u'wrong-3'), ('choice_2', u'correct-1')]
-        self.assertRegex(the_html, r"<div>.*\[.*'wrong-1'.*'wrong-4'.*'wrong-3'.*'correct-1'.*\].*</div>")
+        self.assertRegex(
+            the_html,
+            r"<div>.*\[.*'wrong-1'.*'wrong-4'.*'wrong-3'.*'correct-1'.*\].*</div>",
+        )
         self.assertRegex(the_html, r"<div>\{.*'1_solution_1'.*\}</div>")
         # Check about masking
         response = list(problem.responders.values())[0]
         self.assertFalse(response.has_mask())
-        self.assertTrue(hasattr(response, 'has_answerpool'))
-        self.assertEqual(response.unmask_order(), ['choice_0', 'choice_4', 'choice_3', 'choice_2'])
+        self.assertTrue(hasattr(response, "has_answerpool"))
+        self.assertEqual(
+            response.unmask_order(), ["choice_0", "choice_4", "choice_3", "choice_2"]
+        )
 
     def test_no_answer_pool_4_choices_1_multiplechoiceresponse(self):
-        xml_str = textwrap.dedent("""
+        xml_str = textwrap.dedent(
+            """
             <problem>
 
             <p>What is the correct answer?</p>
@@ -111,20 +127,27 @@ class CapaAnswerPoolTest(unittest.TestCase):
             </solutionset>
 
         </problem>
-        """)
+        """
+        )
 
         problem = new_loncapa_problem(xml_str)
         the_html = problem.get_html()
-        self.assertRegex(the_html, r"<div>.*\[.*'wrong-1'.*'wrong-2'.*'correct-1'.*'wrong-3'.*'wrong-4'.*'correct-2'.*\].*</div>")
+        self.assertRegex(
+            the_html,
+            r"<div>.*\[.*'wrong-1'.*'wrong-2'.*'correct-1'.*'wrong-3'.*'wrong-4'.*'correct-2'.*\].*</div>",
+        )
         self.assertRegex(the_html, r"<div>\{.*'1_solution_1'.*'1_solution_2'.*\}</div>")
-        self.assertEqual(the_html, problem.get_html(), 'should be able to call get_html() twice')
+        self.assertEqual(
+            the_html, problem.get_html(), "should be able to call get_html() twice"
+        )
         # Check about masking
         response = list(problem.responders.values())[0]
         self.assertFalse(response.has_mask())
         self.assertFalse(response.has_answerpool())
 
     def test_0_answer_pool_4_choices_1_multiplechoiceresponse(self):
-        xml_str = textwrap.dedent("""
+        xml_str = textwrap.dedent(
+            """
             <problem>
 
             <p>What is the correct answer?</p>
@@ -157,18 +180,23 @@ class CapaAnswerPoolTest(unittest.TestCase):
             </solutionset>
 
         </problem>
-        """)
+        """
+        )
 
         problem = new_loncapa_problem(xml_str)
         the_html = problem.get_html()
-        self.assertRegex(the_html, r"<div>.*\[.*'wrong-1'.*'wrong-2'.*'correct-1'.*'wrong-3'.*'wrong-4'.*'correct-2'.*\].*</div>")
+        self.assertRegex(
+            the_html,
+            r"<div>.*\[.*'wrong-1'.*'wrong-2'.*'correct-1'.*'wrong-3'.*'wrong-4'.*'correct-2'.*\].*</div>",
+        )
         self.assertRegex(the_html, r"<div>\{.*'1_solution_1'.*'1_solution_2'.*\}</div>")
         response = list(problem.responders.values())[0]
         self.assertFalse(response.has_mask())
         self.assertFalse(response.has_answerpool())
 
     def test_invalid_answer_pool_value(self):
-        xml_str = textwrap.dedent("""
+        xml_str = textwrap.dedent(
+            """
             <problem>
 
             <p>What is the correct answer?</p>
@@ -201,13 +229,15 @@ class CapaAnswerPoolTest(unittest.TestCase):
             </solutionset>
 
         </problem>
-        """)
+        """
+        )
 
         with self.assertRaisesRegex(LoncapaProblemError, "answer-pool"):
             new_loncapa_problem(xml_str)
 
     def test_invalid_answer_pool_none_correct(self):
-        xml_str = textwrap.dedent("""
+        xml_str = textwrap.dedent(
+            """
             <problem>
             <p>What is the correct answer?</p>
             <multiplechoiceresponse>
@@ -220,12 +250,14 @@ class CapaAnswerPoolTest(unittest.TestCase):
               </choicegroup>
             </multiplechoiceresponse>
         </problem>
-        """)
+        """
+        )
         with self.assertRaisesRegex(LoncapaProblemError, "1 correct.*1 incorrect"):
             new_loncapa_problem(xml_str)
 
     def test_invalid_answer_pool_all_correct(self):
-        xml_str = textwrap.dedent("""
+        xml_str = textwrap.dedent(
+            """
             <problem>
             <p>What is the correct answer?</p>
             <multiplechoiceresponse>
@@ -237,12 +269,14 @@ class CapaAnswerPoolTest(unittest.TestCase):
               </choicegroup>
             </multiplechoiceresponse>
         </problem>
-        """)
+        """
+        )
         with self.assertRaisesRegex(LoncapaProblemError, "1 correct.*1 incorrect"):
             new_loncapa_problem(xml_str)
 
     def test_answer_pool_5_choices_1_multiplechoiceresponse_seed1(self):
-        xml_str = textwrap.dedent("""
+        xml_str = textwrap.dedent(
+            """
             <problem>
 
             <p>What is the correct answer?</p>
@@ -275,18 +309,26 @@ class CapaAnswerPoolTest(unittest.TestCase):
             </solutionset>
 
         </problem>
-        """)
+        """
+        )
 
         problem = new_loncapa_problem(xml_str, seed=723)
         the_html = problem.get_html()
-        self.assertRegex(the_html, r"<div>.*\[.*'correct-2'.*'wrong-1'.*'wrong-2'.*.*'wrong-3'.*'wrong-4'.*\].*</div>")
+        self.assertRegex(
+            the_html,
+            r"<div>.*\[.*'correct-2'.*'wrong-1'.*'wrong-2'.*.*'wrong-3'.*'wrong-4'.*\].*</div>",
+        )
         self.assertRegex(the_html, r"<div>\{.*'1_solution_2'.*\}</div>")
         response = list(problem.responders.values())[0]
         self.assertFalse(response.has_mask())
-        self.assertEqual(response.unmask_order(), ['choice_5', 'choice_0', 'choice_1', 'choice_3', 'choice_4'])
+        self.assertEqual(
+            response.unmask_order(),
+            ["choice_5", "choice_0", "choice_1", "choice_3", "choice_4"],
+        )
 
     def test_answer_pool_2_multiplechoiceresponses_seed1(self):
-        xml_str = textwrap.dedent("""
+        xml_str = textwrap.dedent(
+            """
             <problem>
 
             <p>What is the correct answer?</p>
@@ -348,12 +390,13 @@ class CapaAnswerPoolTest(unittest.TestCase):
             </solutionset>
 
         </problem>
-        """)
+        """
+        )
         problem = new_loncapa_problem(xml_str)
         the_html = problem.get_html()
 
         str1 = r"<div>.*\[.*'wrong-3'.*'correct-2'.*'wrong-2'.*'wrong-4'.*\].*</div>"
-        str2 = r"<div>.*\[.*'wrong-2'.*'wrong-1'.*'correct-2'.*\].*</div>"    # rng shared
+        str2 = r"<div>.*\[.*'wrong-2'.*'wrong-1'.*'correct-2'.*\].*</div>"  # rng shared
         # str2 = r"<div>.*\[.*'correct-2'.*'wrong-2'.*'wrong-3'.*\].*</div>"  # rng independent
 
         str3 = r"<div>\{.*'1_solution_2'.*\}</div>"
@@ -370,7 +413,8 @@ class CapaAnswerPoolTest(unittest.TestCase):
         self.assertRegex(without_new_lines, str3 + r".*" + str4)
 
     def test_answer_pool_2_multiplechoiceresponses_seed2(self):
-        xml_str = textwrap.dedent("""
+        xml_str = textwrap.dedent(
+            """
             <problem>
 
             <p>What is the correct answer?</p>
@@ -432,7 +476,8 @@ class CapaAnswerPoolTest(unittest.TestCase):
             </solutionset>
 
         </problem>
-        """)
+        """
+        )
         problem = new_loncapa_problem(xml_str, seed=9)
         the_html = problem.get_html()
 
@@ -456,7 +501,8 @@ class CapaAnswerPoolTest(unittest.TestCase):
         The point of this test is to make sure that the exact randomization
         per seed does not change.
         """
-        xml_str = textwrap.dedent("""
+        xml_str = textwrap.dedent(
+            """
             <problem>
             <multiplechoiceresponse>
               <choicegroup type="MultipleChoice" answer-pool="2">
@@ -506,19 +552,23 @@ class CapaAnswerPoolTest(unittest.TestCase):
               </choicegroup>
             </multiplechoiceresponse>
         </problem>
-        """)
+        """
+        )
 
         problem = new_loncapa_problem(xml_str)
         the_html = problem.get_html()
-        str1 = (r"<div>.*\[.*'correct-2'.*'wrong-2'.*\].*</div>.*" +
-                r"<div>.*\[.*'wrong-1'.*'correct-2'.*'wrong-4'.*\].*</div>.*" +
-                r"<div>.*\[.*'correct-1'.*'wrong-4'.*\].*</div>.*" +
-                r"<div>.*\[.*'wrong-1'.*'wrong-2'.*'correct-1'.*\].*</div>")
+        str1 = (
+            r"<div>.*\[.*'correct-2'.*'wrong-2'.*\].*</div>.*"
+            + r"<div>.*\[.*'wrong-1'.*'correct-2'.*'wrong-4'.*\].*</div>.*"
+            + r"<div>.*\[.*'correct-1'.*'wrong-4'.*\].*</div>.*"
+            + r"<div>.*\[.*'wrong-1'.*'wrong-2'.*'correct-1'.*\].*</div>"
+        )
         without_new_lines = the_html.replace("\n", "")
         self.assertRegex(without_new_lines, str1)
 
     def test_no_answer_pool(self):
-        xml_str = textwrap.dedent("""
+        xml_str = textwrap.dedent(
+            """
             <problem>
 
             <p>What is the correct answer?</p>
@@ -533,7 +583,8 @@ class CapaAnswerPoolTest(unittest.TestCase):
             </multiplechoiceresponse>
 
         </problem>
-        """)
+        """
+        )
 
         problem = new_loncapa_problem(xml_str, seed=723)
         the_html = problem.get_html()
@@ -547,7 +598,8 @@ class CapaAnswerPoolTest(unittest.TestCase):
         self.assertFalse(response.has_answerpool())
 
     def test_answer_pool_and_no_answer_pool(self):
-        xml_str = textwrap.dedent("""
+        xml_str = textwrap.dedent(
+            """
             <problem>
 
             <p>What is the correct answer?</p>
@@ -599,7 +651,8 @@ class CapaAnswerPoolTest(unittest.TestCase):
             </solutionset>
 
         </problem>
-        """)
+        """
+        )
 
         problem = new_loncapa_problem(xml_str, seed=723)
         the_html = problem.get_html()
@@ -620,7 +673,8 @@ class CapaAnswerPoolTest(unittest.TestCase):
         self.assertRegex(without_new_lines, str3 + r".*" + str4)
 
     def test_answer_pool_without_solutionset(self):
-        xml_str = textwrap.dedent("""
+        xml_str = textwrap.dedent(
+            """
             <problem>
 
             <p>What is the correct answer?</p>
@@ -644,10 +698,14 @@ class CapaAnswerPoolTest(unittest.TestCase):
             </solution>
 
         </problem>
-        """)
+        """
+        )
 
         problem = new_loncapa_problem(xml_str, seed=723)
         the_html = problem.get_html()
 
-        self.assertRegex(the_html, r"<div>.*\[.*'wrong-3'.*'correct-2'.*'wrong-2'.*'wrong-4'.*\].*</div>")
+        self.assertRegex(
+            the_html,
+            r"<div>.*\[.*'wrong-3'.*'correct-2'.*'wrong-2'.*'wrong-4'.*\].*</div>",
+        )
         self.assertRegex(the_html, r"<div>\{.*'1_solution_1'.*\}</div>")

@@ -13,10 +13,10 @@ from mako.filters import decode
 # Text() can be used to declare a string as plain text, as HTML() is used
 # for HTML.  It simply wraps markupsafe's escape, which will HTML-escape if
 # it isn't already escaped.
-Text = markupsafe.escape                        # pylint: disable=invalid-name
+Text = markupsafe.escape  # pylint: disable=invalid-name
 
 
-def HTML(html):                                 # pylint: disable=invalid-name
+def HTML(html):  # pylint: disable=invalid-name
     """
     Mark a string as already HTML, so that it won't be escaped before output.
 
@@ -55,7 +55,7 @@ def strip_all_tags_but_br(string_to_strip):
         string_to_strip = ""
 
     string_to_strip = decode.utf8(string_to_strip)
-    string_to_strip = bleach.clean(string_to_strip, tags=['br'], strip=True)
+    string_to_strip = bleach.clean(string_to_strip, tags=["br"], strip=True)
 
     return HTML(string_to_strip)
 
@@ -78,7 +78,7 @@ def clean_dangerous_html(html):
 
 
 def stringify_children(node):
-    '''
+    """
     Return all contents of an xml tree, without the outside tags.
     e.g. if node is parse of
         "<html a="b" foo="bar">Hi <div>there <span>Bruce</span><b>!</b></div><html>"
@@ -87,7 +87,7 @@ def stringify_children(node):
 
     fixed from
     http://stackoverflow.com/questions/4624062/get-all-text-inside-a-tag-in-lxml
-    '''
+    """
     # Useful things to know:
 
     # node.tostring() -- generates xml for the node, including start
@@ -98,7 +98,7 @@ def stringify_children(node):
     #                 next element.
     parts = [node.text]
     for c in node.getchildren():
-        parts.append(etree.tostring(c, with_tail=True, encoding='unicode'))
+        parts.append(etree.tostring(c, with_tail=True, encoding="unicode"))
 
     # filter removes possible Nones in texts and tails
-    return u''.join([part for part in parts if part])
+    return u"".join([part for part in parts if part])

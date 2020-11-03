@@ -120,7 +120,7 @@ def safe_exec(
     if cache:
         safe_globals = json_safe(globals_dict)
         md5er = hashlib.md5()
-        md5er.update(repr(code).encode('utf-8'))
+        md5er.update(repr(code).encode("utf-8"))
         update_hash(md5er, safe_globals)
         key = "safe_exec.%r.%s" % (random_seed, md5er.hexdigest())
         cached = cache.get(key)
@@ -145,8 +145,11 @@ def safe_exec(
     # Run the code!  Results are side effects in globals_dict.
     try:
         exec_fn(
-            code_prolog + LAZY_IMPORTS + code, globals_dict,
-            python_path=python_path, extra_files=extra_files, slug=slug,
+            code_prolog + LAZY_IMPORTS + code,
+            globals_dict,
+            python_path=python_path,
+            extra_files=extra_files,
+            slug=slug,
         )
     except SafeExecException as e:
         # Saving SafeExecException e in exception to be used later.
