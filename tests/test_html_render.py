@@ -6,19 +6,22 @@ CAPA HTML rendering tests.
 import os
 import textwrap
 import unittest
-
-from lxml import etree
+from unittest import mock
 
 import ddt
-import mock
-# Changes formatting of empty elements; import here to avoid test order dependence
-import xmodule.modulestore.xml  # pylint: disable=unused-import
-from openedx.core.djangolib.markup import HTML
+from lxml import etree
+
+from capa.util import HTML
 from test_utils.helpers import new_loncapa_problem, test_capa_system
 from test_utils.response_xml_factory import (
     CustomResponseXMLFactory,
     StringResponseXMLFactory,
 )
+
+## TODO: I commented this out when pulling edx-capa out of edx-platform.
+## If tests pass, we can safely remove it.
+## Changes formatting of empty elements; import here to avoid test order dependence
+# import xmodule.modulestore.xml
 
 
 @ddt.ddt

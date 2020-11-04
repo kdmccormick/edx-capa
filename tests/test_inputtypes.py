@@ -23,6 +23,7 @@ import textwrap
 import unittest
 import xml.sax.saxutils as saxutils
 from collections import OrderedDict
+from unittest.mock import ANY, patch
 
 import six
 from lxml import etree
@@ -32,9 +33,8 @@ from six.moves import zip
 
 from capa import inputtypes
 from capa.checker import DemoSystem
+from capa.util import HTML
 from capa.xqueue_interface import XQUEUE_TIMEOUT
-from mock import ANY, patch
-from openedx.core.djangolib.markup import HTML
 from test_utils.helpers import test_capa_system
 
 # just a handy shortcut

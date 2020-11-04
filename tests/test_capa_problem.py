@@ -5,15 +5,15 @@ Test capa problem.
 
 import textwrap
 import unittest
+from unittest.mock import patch
 
+import ddt
 import six
 from lxml import etree
 from markupsafe import Markup
 
-import ddt
 from capa.responsetypes import LoncapaProblemError
-from mock import patch
-from openedx.core.djangolib.markup import HTML
+from capa.util import HTML
 from test_utils.helpers import new_loncapa_problem
 
 

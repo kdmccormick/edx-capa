@@ -1,8 +1,25 @@
 # Core requirements for using this application
 -c constraints.txt
 
+# Packages from GitHub
+-e git+https://github.com/edx/codejail.git@3.0.1#egg=codejail==3.0.1
+
+# Web application framework (from PyPI; tox will modify the version of this)
+Django>=1.11
+
+# Packages from PyPI
 bleach                              # Allowed-list-based HTML sanitizing library that escapes or strips markup and attributes.
+chem                                # Helper library for chemistry calculation.
+fs                                  # Filesystem abstraction layer.
+html5lib                            # ...
 lxml                                # Processing XML and HTML.
+mako                                # Templating.
 markupsafe                          # Markup santizing.
+openedx-calc                        # Helper library for mathematical calculation.
+numpy                               # ...
+path                                # Object-oriented path manipulation.
 pytz                                # Timezone database.
+random2                             # Python 2 random() reimplementation.
+requests                            # HTTP request and response utilities.
+shapely                             # Manipulation and analysis of geometric objects in the Cartesian plane.
 sympy                               # Symbolic mathematics.

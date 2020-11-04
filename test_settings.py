@@ -16,26 +16,26 @@ def root(*args):
 
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'default.db',
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': '',
-        'PORT': '',
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": "default.db",
+        "USER": "",
+        "PASSWORD": "",
+        "HOST": "",
+        "PORT": "",
     }
 }
 
 INSTALLED_APPS = (
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'capa',
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "capa",
 )
 
 LOCALE_PATHS = [
-    root('capa', 'conf', 'locale'),
+    root("capa", "conf", "locale"),
 ]
 
-ROOT_URLCONF = 'capa.urls'
+ROOT_URLCONF = "capa.urls"
 
-SECRET_KEY = 'insecure-secret-key'
+SECRET_KEY = "insecure-secret-key"

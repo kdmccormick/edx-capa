@@ -8,11 +8,9 @@ of a variety of types.
 Used by capa_problem.py
 """
 
-# standard library imports
-
+# TODO: Remove Beautiful Soup dependency.
 
 import abc
-# TODO: Refactor this code and fix this issue.
 import inspect
 import json
 import logging
@@ -26,25 +24,23 @@ from collections import namedtuple
 from datetime import datetime
 from sys import float_info
 
+import html5lib
+import numpy
+import random2 as random
 import requests
 import six
+from calc import UndefinedVariable, UnmatchedParenthesis, evaluator
 from django.utils import html
-from django.utils.encoding import python_2_unicode_compatible
 from lxml import etree
-from lxml.html.soupparser import fromstring as fromstring_bs  # uses Beautiful Soup!!! FIXME?
+from lxml.html.soupparser import fromstring as fromstring_bs
 from pyparsing import ParseException
 from pytz import UTC
+from shapely.geometry import MultiPoint, Point
 from six import text_type
 from six.moves import map, range, zip
 
 import capa.safe_exec as safe_exec
 import capa.xqueue_interface as xqueue_interface
-import html5lib
-import numpy
-import random2 as random
-# specific library imports
-from calc import UndefinedVariable, UnmatchedParenthesis, evaluator
-from shapely.geometry import MultiPoint, Point
 
 from . import correctmap
 from .registry import TagRegistry
@@ -113,7 +109,6 @@ class StudentInputError(Exception):
 # Main base class for CAPA responsetypes
 
 
-@python_2_unicode_compatible
 class LoncapaResponse(six.with_metaclass(abc.ABCMeta, object)):
     """
     Base class for CAPA responsetypes.  Each response type (ie a capa question,
@@ -603,6 +598,7 @@ class LoncapaResponse(six.with_metaclass(abc.ABCMeta, object)):
         """
         pass
 
+    @abc.abstractmethod
     def check_hint_condition(self, hxml_set, student_answers):
         """
         Return a list of hints to show.
@@ -2747,7 +2743,7 @@ class SymbolicResponse(CustomResponse):
         super(SymbolicResponse, self).setup_response()
 
     def execute_check_function(self, idset, submission):
-        from symmath import symmath_check
+        from capa.symmath import symmath_check
 
         try:
             # Since we have limited max_inputfields to 1,

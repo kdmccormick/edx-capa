@@ -4,63 +4,73 @@
 #
 #    make upgrade
 #
-appdirs==1.4.4            # via -r requirements/quality.txt, -r requirements/travis.txt, black, virtualenv
-asgiref==3.3.0            # via -r requirements/quality.txt, django
+-e git+https://github.com/edx/codejail.git@3.0.1#egg=codejail==3.0.1  # via -r requirements/quality.txt
+appdirs==1.4.4            # via -r requirements/quality.txt, -r requirements/travis.txt, black, fs, virtualenv
 astroid==2.3.3            # via -r requirements/quality.txt, pylint, pylint-celery
 attrs==20.2.0             # via -r requirements/quality.txt, pytest
 black==20.8b1             # via -r requirements/quality.txt
 bleach==3.2.1             # via -r requirements/quality.txt
-certifi==2020.6.20        # via -r requirements/travis.txt, requests
-chardet==3.0.4            # via -r requirements/travis.txt, requests
+certifi==2020.6.20        # via -r requirements/quality.txt, -r requirements/travis.txt, requests
+chardet==3.0.4            # via -r requirements/quality.txt, -r requirements/travis.txt, requests
+chem==1.2.0               # via -r requirements/quality.txt
 click-log==0.3.2          # via -r requirements/quality.txt, edx-lint
-click==7.1.2              # via -r requirements/pip-tools.txt, -r requirements/quality.txt, black, click-log, code-annotations, edx-lint, pip-tools
+click==7.1.2              # via -r requirements/pip-tools.txt, -r requirements/quality.txt, black, click-log, code-annotations, edx-lint, nltk, pip-tools
 code-annotations==0.10.0  # via -r requirements/quality.txt
 codecov==2.1.10           # via -r requirements/travis.txt
 coverage==5.3             # via -r requirements/quality.txt, -r requirements/travis.txt, codecov, pytest-cov
+ddt==1.4.1                # via -r requirements/quality.txt
 diff-cover==4.0.1         # via -r requirements/dev.in
 distlib==0.3.1            # via -r requirements/travis.txt, virtualenv
-django==3.1.3             # via -r requirements/quality.txt, code-annotations, edx-i18n-tools
+django==2.2.17            # via -c requirements/constraints.txt, -r requirements/quality.txt, code-annotations, edx-i18n-tools
 edx-i18n-tools==0.5.3     # via -r requirements/dev.in
 edx-lint==1.5.2           # via -r requirements/quality.txt
 filelock==3.0.12          # via -r requirements/travis.txt, tox, virtualenv
-idna==2.10                # via -r requirements/travis.txt, requests
+fs==2.4.11                # via -r requirements/quality.txt
+html5lib==1.1             # via -r requirements/quality.txt
+idna==2.10                # via -r requirements/quality.txt, -r requirements/travis.txt, requests
 inflect==4.1.0            # via jinja2-pluralize
 iniconfig==1.1.1          # via -r requirements/quality.txt, pytest
 isort==4.3.21             # via -r requirements/quality.txt, pylint
 jinja2-pluralize==0.3.0   # via diff-cover
 jinja2==2.11.2            # via -r requirements/quality.txt, code-annotations, diff-cover, jinja2-pluralize
+joblib==0.17.0            # via -r requirements/quality.txt, nltk
 lazy-object-proxy==1.4.3  # via -r requirements/quality.txt, astroid
 lxml==4.6.1               # via -r requirements/quality.txt
-markupsafe==1.1.1         # via -r requirements/quality.txt, jinja2
+mako==1.1.3               # via -r requirements/quality.txt
+markupsafe==1.1.1         # via -r requirements/quality.txt, chem, jinja2, mako
 mccabe==0.6.1             # via -r requirements/quality.txt, pylint
 mpmath==1.1.0             # via -r requirements/quality.txt, sympy
 mypy-extensions==0.4.3    # via -r requirements/quality.txt, black
+nltk==3.5                 # via -r requirements/quality.txt, chem
+numpy==1.19.4             # via -r requirements/quality.txt, chem, openedx-calc, scipy
+openedx-calc==1.0.9       # via -r requirements/quality.txt
 packaging==20.4           # via -r requirements/quality.txt, -r requirements/travis.txt, bleach, pytest, tox
 path.py==12.5.0           # via edx-i18n-tools
-path==15.0.0              # via path.py
+path==15.0.0              # via -r requirements/quality.txt, path.py
 pathspec==0.8.0           # via -r requirements/quality.txt, black
 pbr==5.5.1                # via -r requirements/quality.txt, stevedore
 pip-tools==5.3.1          # via -r requirements/pip-tools.txt
 pluggy==0.13.1            # via -r requirements/quality.txt, -r requirements/travis.txt, diff-cover, pytest, tox
 polib==1.1.0              # via edx-i18n-tools
 py==1.9.0                 # via -r requirements/quality.txt, -r requirements/travis.txt, pytest, tox
-pydocstyle==5.1.1         # via -r requirements/quality.txt
 pygments==2.7.2           # via diff-cover
 pylint-celery==0.3        # via -r requirements/quality.txt, edx-lint
 pylint-django==2.0.11     # via -r requirements/quality.txt, edx-lint
 pylint-plugin-utils==0.6  # via -r requirements/quality.txt, pylint-celery, pylint-django
 pylint==2.4.4             # via -r requirements/quality.txt, edx-lint, pylint-celery, pylint-django, pylint-plugin-utils
-pyparsing==2.4.7          # via -r requirements/quality.txt, -r requirements/travis.txt, packaging
+pyparsing==2.4.7          # via -r requirements/quality.txt, -r requirements/travis.txt, chem, openedx-calc, packaging
 pytest-cov==2.10.1        # via -r requirements/quality.txt
 pytest-django==4.1.0      # via -r requirements/quality.txt
 pytest==6.1.2             # via -r requirements/quality.txt, pytest-cov, pytest-django
 python-slugify==4.0.1     # via -r requirements/quality.txt, code-annotations
-pytz==2020.4              # via -r requirements/quality.txt, django
+pytz==2020.4              # via -r requirements/quality.txt, django, fs
 pyyaml==5.3.1             # via -r requirements/quality.txt, code-annotations, edx-i18n-tools
-regex==2020.10.28         # via -r requirements/quality.txt, black
-requests==2.24.0          # via -r requirements/travis.txt, codecov
-six==1.15.0               # via -r requirements/pip-tools.txt, -r requirements/quality.txt, -r requirements/travis.txt, astroid, bleach, edx-i18n-tools, edx-lint, packaging, pip-tools, tox, virtualenv
-snowballstemmer==2.0.0    # via -r requirements/quality.txt, pydocstyle
+random2==1.0.1            # via -r requirements/quality.txt
+regex==2020.10.28         # via -r requirements/quality.txt, black, nltk
+requests==2.24.0          # via -r requirements/quality.txt, -r requirements/travis.txt, codecov
+scipy==1.5.3              # via -r requirements/quality.txt, chem, openedx-calc
+shapely==1.7.1            # via -r requirements/quality.txt
+six==1.15.0               # via -r requirements/pip-tools.txt, -r requirements/quality.txt, -r requirements/travis.txt, astroid, bleach, chem, edx-i18n-tools, edx-lint, fs, html5lib, openedx-calc, packaging, pip-tools, tox, virtualenv
 sqlparse==0.4.1           # via -r requirements/quality.txt, django
 stevedore==3.2.2          # via -r requirements/quality.txt, code-annotations
 sympy==1.6.2              # via -r requirements/quality.txt
@@ -68,12 +78,14 @@ text-unidecode==1.3       # via -r requirements/quality.txt, python-slugify
 toml==0.10.2              # via -r requirements/quality.txt, -r requirements/travis.txt, black, pytest, tox
 tox-battery==0.6.1        # via -r requirements/dev.in
 tox==3.20.1               # via -r requirements/travis.txt, tox-battery
+tqdm==4.51.0              # via -r requirements/quality.txt, nltk
 typed-ast==1.4.1          # via -r requirements/quality.txt, black
 typing-extensions==3.7.4.3  # via -r requirements/quality.txt, black
-urllib3==1.25.11          # via -r requirements/travis.txt, requests
+urllib3==1.25.11          # via -r requirements/quality.txt, -r requirements/travis.txt, requests
 virtualenv==20.1.0        # via -r requirements/travis.txt, tox
-webencodings==0.5.1       # via -r requirements/quality.txt, bleach
+webencodings==0.5.1       # via -r requirements/quality.txt, bleach, html5lib
 wrapt==1.11.2             # via -r requirements/quality.txt, astroid
 
 # The following packages are considered to be unsafe in a requirements file:
 # pip
+# setuptools

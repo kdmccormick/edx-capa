@@ -4,13 +4,40 @@
 #
 #    make upgrade
 #
+-e git+https://github.com/edx/codejail.git@3.0.1#egg=codejail==3.0.1  # via -r requirements/base.in
+appdirs==1.4.4            # via fs
 bleach==3.2.1             # via -r requirements/base.in
+certifi==2020.6.20        # via requests
+chardet==3.0.4            # via requests
+chem==1.2.0               # via -r requirements/base.in
+click==7.1.2              # via nltk
+django==2.2.17            # via -c requirements/constraints.txt, -r requirements/base.in
+fs==2.4.11                # via -r requirements/base.in
+html5lib==1.1             # via -r requirements/base.in
+idna==2.10                # via requests
+joblib==0.17.0            # via nltk
 lxml==4.6.1               # via -r requirements/base.in
-markupsafe==1.1.1         # via -r requirements/base.in
+mako==1.1.3               # via -r requirements/base.in
+markupsafe==1.1.1         # via -r requirements/base.in, chem, mako
 mpmath==1.1.0             # via sympy
+nltk==3.5                 # via chem
+numpy==1.19.4             # via -r requirements/base.in, chem, openedx-calc, scipy
+openedx-calc==1.0.9       # via -r requirements/base.in
 packaging==20.4           # via bleach
-pyparsing==2.4.7          # via packaging
-pytz==2020.4              # via -r requirements/base.in
-six==1.15.0               # via bleach, packaging
+path==15.0.0              # via -r requirements/base.in
+pyparsing==2.4.7          # via chem, openedx-calc, packaging
+pytz==2020.4              # via -r requirements/base.in, django, fs
+random2==1.0.1            # via -r requirements/base.in
+regex==2020.10.28         # via nltk
+requests==2.24.0          # via -r requirements/base.in
+scipy==1.5.3              # via chem, openedx-calc
+shapely==1.7.1            # via -r requirements/base.in
+six==1.15.0               # via bleach, chem, fs, html5lib, openedx-calc, packaging
+sqlparse==0.4.1           # via django
 sympy==1.6.2              # via -r requirements/base.in
-webencodings==0.5.1       # via bleach
+tqdm==4.51.0              # via nltk
+urllib3==1.25.11          # via requests
+webencodings==0.5.1       # via bleach, html5lib
+
+# The following packages are considered to be unsafe in a requirements file:
+# setuptools

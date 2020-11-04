@@ -12,10 +12,9 @@ from decimal import Decimal
 import bleach
 import markupsafe
 import six
+from calc import evaluator
 from lxml import etree
 from lxml.html.clean import Cleaner
-
-from calc import evaluator
 from mako.filters import decode
 
 # -----------------------------------------------------------------------------

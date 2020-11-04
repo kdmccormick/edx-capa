@@ -23,7 +23,6 @@ from datetime import datetime
 from xml.sax.saxutils import unescape
 
 import six
-from django.utils.encoding import python_2_unicode_compatible
 from lxml import etree
 from pytz import UTC
 
@@ -132,7 +131,6 @@ class LoncapaSystem(object):
         self.matlab_api_key = matlab_api_key
 
 
-@python_2_unicode_compatible
 class LoncapaProblem(object):
     """
     Main class for capa Problems.
@@ -143,7 +141,7 @@ class LoncapaProblem(object):
         problem_text,
         id,
         capa_system,
-        capa_module,  # pylint: disable=redefined-builtin
+        capa_module,
         state=None,
         seed=None,
         minimal_init=False,
@@ -616,7 +614,7 @@ class LoncapaProblem(object):
             question_nr = int(answer_id.split("_")[-2]) - 1
             return _("Question {}").format(question_nr)
 
-        _ = get_gettext(self.capa_system.i18n)
+        _ = self.capa_system.i18n.gettext
         # Some questions define a prompt with this format:   >>This is a prompt<<
         try:
             prompt = self.problem_data[answer_id].get("label")
@@ -730,7 +728,7 @@ class LoncapaProblem(object):
         choice-level explanations shown to a student after submission.
         Does nothing if there is no targeted-feedback attribute.
         """
-        _ = get_gettext(self.capa_system.i18n)
+        _ = self.capa_system.i18n.gettext
         # Note that the modifications has been done, avoiding problems if called twice.
         if hasattr(self, "has_targeted"):
             return

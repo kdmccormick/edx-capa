@@ -4,43 +4,58 @@
 #
 #    make upgrade
 #
+-e git+https://github.com/edx/codejail.git@3.0.1#egg=codejail==3.0.1  # via -r requirements/test.txt
 alabaster==0.7.12         # via sphinx
-asgiref==3.3.0            # via -r requirements/test.txt, django
+appdirs==1.4.4            # via -r requirements/test.txt, fs
 attrs==20.2.0             # via -r requirements/test.txt, pytest
 babel==2.8.0              # via sphinx
 bleach==3.2.1             # via -r requirements/test.txt, readme-renderer
-certifi==2020.6.20        # via requests
-chardet==3.0.4            # via doc8, requests
-click==7.1.2              # via -r requirements/test.txt, code-annotations
+certifi==2020.6.20        # via -r requirements/test.txt, requests
+chardet==3.0.4            # via -r requirements/test.txt, doc8, requests
+chem==1.2.0               # via -r requirements/test.txt
+click==7.1.2              # via -r requirements/test.txt, code-annotations, nltk
 code-annotations==0.10.0  # via -r requirements/test.txt
 coverage==5.3             # via -r requirements/test.txt, pytest-cov
-django==3.1.3             # via -r requirements/test.txt, code-annotations
+ddt==1.4.1                # via -r requirements/test.txt
+django==2.2.17            # via -c requirements/constraints.txt, -r requirements/test.txt, code-annotations
 doc8==0.8.1               # via -r requirements/doc.in
 docutils==0.16            # via doc8, readme-renderer, restructuredtext-lint, sphinx
 edx-sphinx-theme==1.5.0   # via -r requirements/doc.in
-idna==2.10                # via requests
+fs==2.4.11                # via -r requirements/test.txt
+html5lib==1.1             # via -r requirements/test.txt
+idna==2.10                # via -r requirements/test.txt, requests
 imagesize==1.2.0          # via sphinx
 iniconfig==1.1.1          # via -r requirements/test.txt, pytest
 jinja2==2.11.2            # via -r requirements/test.txt, code-annotations, sphinx
+joblib==0.17.0            # via -r requirements/test.txt, nltk
 lxml==4.6.1               # via -r requirements/test.txt
-markupsafe==1.1.1         # via -r requirements/test.txt, jinja2
+mako==1.1.3               # via -r requirements/test.txt
+markupsafe==1.1.1         # via -r requirements/test.txt, chem, jinja2, mako
 mpmath==1.1.0             # via -r requirements/test.txt, sympy
+nltk==3.5                 # via -r requirements/test.txt, chem
+numpy==1.19.4             # via -r requirements/test.txt, chem, openedx-calc, scipy
+openedx-calc==1.0.9       # via -r requirements/test.txt
 packaging==20.4           # via -r requirements/test.txt, bleach, pytest, sphinx
+path==15.0.0              # via -r requirements/test.txt
 pbr==5.5.1                # via -r requirements/test.txt, stevedore
 pluggy==0.13.1            # via -r requirements/test.txt, pytest
 py==1.9.0                 # via -r requirements/test.txt, pytest
 pygments==2.7.2           # via doc8, readme-renderer, sphinx
-pyparsing==2.4.7          # via -r requirements/test.txt, packaging
+pyparsing==2.4.7          # via -r requirements/test.txt, chem, openedx-calc, packaging
 pytest-cov==2.10.1        # via -r requirements/test.txt
 pytest-django==4.1.0      # via -r requirements/test.txt
 pytest==6.1.2             # via -r requirements/test.txt, pytest-cov, pytest-django
 python-slugify==4.0.1     # via -r requirements/test.txt, code-annotations
-pytz==2020.4              # via -r requirements/test.txt, babel, django
+pytz==2020.4              # via -r requirements/test.txt, babel, django, fs
 pyyaml==5.3.1             # via -r requirements/test.txt, code-annotations
+random2==1.0.1            # via -r requirements/test.txt
 readme-renderer==28.0     # via -r requirements/doc.in
-requests==2.24.0          # via sphinx
+regex==2020.10.28         # via -r requirements/test.txt, nltk
+requests==2.24.0          # via -r requirements/test.txt, sphinx
 restructuredtext-lint==1.3.1  # via doc8
-six==1.15.0               # via -r requirements/test.txt, bleach, doc8, edx-sphinx-theme, packaging, readme-renderer
+scipy==1.5.3              # via -r requirements/test.txt, chem, openedx-calc
+shapely==1.7.1            # via -r requirements/test.txt
+six==1.15.0               # via -r requirements/test.txt, bleach, chem, doc8, edx-sphinx-theme, fs, html5lib, openedx-calc, packaging, readme-renderer
 snowballstemmer==2.0.0    # via sphinx
 sphinx==3.3.0             # via -r requirements/doc.in, edx-sphinx-theme
 sphinxcontrib-applehelp==1.0.2  # via sphinx
@@ -54,8 +69,9 @@ stevedore==3.2.2          # via -r requirements/test.txt, code-annotations, doc8
 sympy==1.6.2              # via -r requirements/test.txt
 text-unidecode==1.3       # via -r requirements/test.txt, python-slugify
 toml==0.10.2              # via -r requirements/test.txt, pytest
-urllib3==1.25.11          # via requests
-webencodings==0.5.1       # via -r requirements/test.txt, bleach
+tqdm==4.51.0              # via -r requirements/test.txt, nltk
+urllib3==1.25.11          # via -r requirements/test.txt, requests
+webencodings==0.5.1       # via -r requirements/test.txt, bleach, html5lib
 
 # The following packages are considered to be unsafe in a requirements file:
 # setuptools

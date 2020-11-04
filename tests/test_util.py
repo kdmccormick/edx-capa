@@ -6,9 +6,9 @@ Tests capa util
 
 import unittest
 
+import ddt
 from lxml import etree
 
-import ddt
 from capa.util import (
     compare_with_tolerance,
     contextualize_text,

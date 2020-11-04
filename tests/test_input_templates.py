@@ -8,13 +8,12 @@ import unittest
 from collections import OrderedDict
 
 from lxml import etree
+from mako import exceptions
 from six.moves import range
 
 from capa.inputtypes import Status
-from mako import exceptions
-from openedx.core.djangolib.markup import HTML
+from capa.util import HTML, stringify_children
 from test_utils.helpers import capa_render_template
-from xmodule.stringify import stringify_children
 
 
 class TemplateError(Exception):

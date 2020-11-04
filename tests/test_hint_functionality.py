@@ -7,6 +7,7 @@ Tests of extended hints
 import unittest
 
 from ddt import data, ddt, unpack
+
 from test_utils.helpers import load_fixture, new_loncapa_problem
 
 # With the use of ddt, some of the data expected_string cases below are naturally long stretches
@@ -16,7 +17,7 @@ from test_utils.helpers import load_fixture, new_loncapa_problem
 # For out many ddt data cases, prefer a compact form of { .. }
 
 
-class HintTest(unittest.TestCase):
+class HintTestMixin:
     """Base class for tests of extended hinting functionality."""
 
     def correctness(self, problem_id, choice):
@@ -42,7 +43,7 @@ class HintTest(unittest.TestCase):
 
 # It is a little surprising how much more complicated TextInput is than all the other cases.
 @ddt
-class TextInputHintsTest(HintTest):
+class TextInputHintsTest(HintTestMixin, unittest.TestCase):
     """
     Test Text Input Hints Test
     """
@@ -120,7 +121,7 @@ class TextInputHintsTest(HintTest):
 
 
 @ddt
-class TextInputExtendedHintsCaseInsensitive(HintTest):
+class TextInputExtendedHintsCaseInsensitive(HintTestMixin, unittest.TestCase):
     """Test Text Input Extended hints Case Insensitive"""
 
     xml = load_fixture("extended_hints_text_input.xml")
@@ -181,7 +182,7 @@ class TextInputExtendedHintsCaseInsensitive(HintTest):
 
 
 @ddt
-class TextInputExtendedHintsCaseSensitive(HintTest):
+class TextInputExtendedHintsCaseSensitive(HintTestMixin, unittest.TestCase):
     """Sometimes the semantics can be encoded in the class name."""
 
     xml = load_fixture("extended_hints_text_input.xml")
@@ -222,7 +223,7 @@ class TextInputExtendedHintsCaseSensitive(HintTest):
 
 
 @ddt
-class TextInputExtendedHintsCompatible(HintTest):
+class TextInputExtendedHintsCompatible(HintTestMixin, unittest.TestCase):
     """
     Compatibility test with mixed old and new style additional_answer tags.
     """
@@ -271,7 +272,7 @@ class TextInputExtendedHintsCompatible(HintTest):
 
 
 @ddt
-class TextInputExtendedHintsRegex(HintTest):
+class TextInputExtendedHintsRegex(HintTestMixin, unittest.TestCase):
     """
     Extended hints where the answer is regex mode.
     """
@@ -349,7 +350,7 @@ class TextInputExtendedHintsRegex(HintTest):
 
 
 @ddt
-class NumericInputHintsTest(HintTest):
+class NumericInputHintsTest(HintTestMixin, unittest.TestCase):
     """
     This class consists of a suite of test cases to be run on the numeric input problem represented by the XML below.
     """
@@ -408,7 +409,7 @@ class NumericInputHintsTest(HintTest):
 
 
 @ddt
-class CheckboxHintsTest(HintTest):
+class CheckboxHintsTest(HintTestMixin, unittest.TestCase):
     """
     This class consists of a suite of test cases to be run on the checkbox problem represented by the XML below.
     """
@@ -553,7 +554,7 @@ class CheckboxHintsTest(HintTest):
         self.assertEqual(hint, expected_string)
 
 
-class CheckboxHintsTestTracking(HintTest):
+class CheckboxHintsTestTracking(HintTestMixin, unittest.TestCase):
     """
     Test the rather complicated tracking log output for checkbox cases.
     """
@@ -658,7 +659,7 @@ class CheckboxHintsTestTracking(HintTest):
 
 
 @ddt
-class MultpleChoiceHintsTest(HintTest):
+class MultpleChoiceHintsTest(HintTestMixin, unittest.TestCase):
     """
     This class consists of a suite of test cases to be run on the multiple choice problem represented by the XML below.
     """
@@ -715,7 +716,7 @@ class MultpleChoiceHintsTest(HintTest):
 
 
 @ddt
-class MultpleChoiceHintsWithHtmlTest(HintTest):
+class MultpleChoiceHintsWithHtmlTest(HintTestMixin, unittest.TestCase):
     """
     This class consists of a suite of test cases to be run on the multiple choice problem represented by the XML below.
 
@@ -768,7 +769,7 @@ class MultpleChoiceHintsWithHtmlTest(HintTest):
 
 
 @ddt
-class DropdownHintsTest(HintTest):
+class DropdownHintsTest(HintTestMixin, unittest.TestCase):
     """
     This class consists of a suite of test cases to be run on the drop down problem represented by the XML below.
     """
@@ -840,7 +841,7 @@ class DropdownHintsTest(HintTest):
         self.assertEqual(hint, expected_string)
 
 
-class ErrorConditionsTest(HintTest):
+class ErrorConditionsTest(HintTestMixin, unittest.TestCase):
     """
     Erroneous xml should raise exception.
     """

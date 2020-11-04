@@ -4,53 +4,73 @@
 #
 #    make upgrade
 #
-appdirs==1.4.4            # via black
-asgiref==3.3.0            # via -r requirements/test.txt, django
+-e git+https://github.com/edx/codejail.git@3.0.1#egg=codejail==3.0.1  # via -r requirements/test.txt
+appdirs==1.4.4            # via -r requirements/test.txt, black, fs
 astroid==2.3.3            # via pylint, pylint-celery
 attrs==20.2.0             # via -r requirements/test.txt, pytest
 black==20.8b1             # via -r requirements/quality.in
 bleach==3.2.1             # via -r requirements/test.txt
+certifi==2020.6.20        # via -r requirements/test.txt, requests
+chardet==3.0.4            # via -r requirements/test.txt, requests
+chem==1.2.0               # via -r requirements/test.txt
 click-log==0.3.2          # via edx-lint
-click==7.1.2              # via -r requirements/test.txt, black, click-log, code-annotations, edx-lint
+click==7.1.2              # via -r requirements/test.txt, black, click-log, code-annotations, edx-lint, nltk
 code-annotations==0.10.0  # via -r requirements/test.txt
 coverage==5.3             # via -r requirements/test.txt, pytest-cov
-django==3.1.3             # via -r requirements/test.txt, code-annotations
+ddt==1.4.1                # via -r requirements/test.txt
+django==2.2.17            # via -c requirements/constraints.txt, -r requirements/test.txt, code-annotations
 edx-lint==1.5.2           # via -r requirements/quality.in
+fs==2.4.11                # via -r requirements/test.txt
+html5lib==1.1             # via -r requirements/test.txt
+idna==2.10                # via -r requirements/test.txt, requests
 iniconfig==1.1.1          # via -r requirements/test.txt, pytest
 isort==4.3.21             # via -r requirements/quality.in, pylint
 jinja2==2.11.2            # via -r requirements/test.txt, code-annotations
+joblib==0.17.0            # via -r requirements/test.txt, nltk
 lazy-object-proxy==1.4.3  # via astroid
 lxml==4.6.1               # via -r requirements/test.txt
-markupsafe==1.1.1         # via -r requirements/test.txt, jinja2
+mako==1.1.3               # via -r requirements/test.txt
+markupsafe==1.1.1         # via -r requirements/test.txt, chem, jinja2, mako
 mccabe==0.6.1             # via pylint
 mpmath==1.1.0             # via -r requirements/test.txt, sympy
 mypy-extensions==0.4.3    # via black
+nltk==3.5                 # via -r requirements/test.txt, chem
+numpy==1.19.4             # via -r requirements/test.txt, chem, openedx-calc, scipy
+openedx-calc==1.0.9       # via -r requirements/test.txt
 packaging==20.4           # via -r requirements/test.txt, bleach, pytest
+path==15.0.0              # via -r requirements/test.txt
 pathspec==0.8.0           # via black
 pbr==5.5.1                # via -r requirements/test.txt, stevedore
 pluggy==0.13.1            # via -r requirements/test.txt, pytest
 py==1.9.0                 # via -r requirements/test.txt, pytest
-pydocstyle==5.1.1         # via -r requirements/quality.in
 pylint-celery==0.3        # via edx-lint
 pylint-django==2.0.11     # via edx-lint
 pylint-plugin-utils==0.6  # via pylint-celery, pylint-django
 pylint==2.4.4             # via edx-lint, pylint-celery, pylint-django, pylint-plugin-utils
-pyparsing==2.4.7          # via -r requirements/test.txt, packaging
+pyparsing==2.4.7          # via -r requirements/test.txt, chem, openedx-calc, packaging
 pytest-cov==2.10.1        # via -r requirements/test.txt
 pytest-django==4.1.0      # via -r requirements/test.txt
 pytest==6.1.2             # via -r requirements/test.txt, pytest-cov, pytest-django
 python-slugify==4.0.1     # via -r requirements/test.txt, code-annotations
-pytz==2020.4              # via -r requirements/test.txt, django
+pytz==2020.4              # via -r requirements/test.txt, django, fs
 pyyaml==5.3.1             # via -r requirements/test.txt, code-annotations
-regex==2020.10.28         # via black
-six==1.15.0               # via -r requirements/test.txt, astroid, bleach, edx-lint, packaging
-snowballstemmer==2.0.0    # via pydocstyle
+random2==1.0.1            # via -r requirements/test.txt
+regex==2020.10.28         # via -r requirements/test.txt, black, nltk
+requests==2.24.0          # via -r requirements/test.txt
+scipy==1.5.3              # via -r requirements/test.txt, chem, openedx-calc
+shapely==1.7.1            # via -r requirements/test.txt
+six==1.15.0               # via -r requirements/test.txt, astroid, bleach, chem, edx-lint, fs, html5lib, openedx-calc, packaging
 sqlparse==0.4.1           # via -r requirements/test.txt, django
 stevedore==3.2.2          # via -r requirements/test.txt, code-annotations
 sympy==1.6.2              # via -r requirements/test.txt
 text-unidecode==1.3       # via -r requirements/test.txt, python-slugify
 toml==0.10.2              # via -r requirements/test.txt, black, pytest
+tqdm==4.51.0              # via -r requirements/test.txt, nltk
 typed-ast==1.4.1          # via black
 typing-extensions==3.7.4.3  # via black
-webencodings==0.5.1       # via -r requirements/test.txt, bleach
+urllib3==1.25.11          # via -r requirements/test.txt, requests
+webencodings==0.5.1       # via -r requirements/test.txt, bleach, html5lib
 wrapt==1.11.2             # via astroid
+
+# The following packages are considered to be unsafe in a requirements file:
+# setuptools

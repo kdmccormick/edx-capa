@@ -1,6 +1,5 @@
-.PHONY: clean compile_translations coverage diff_cover docs dummy_translations \
-        extract_translations fake_translations help pii_check pull_translations push_translations \
-        quality requirements selfcheck test test-all upgrade validate
+.PHONY: clean coverage diff_cover docs format help quality requirements \
+        selfcheck test test-all upgrade upgrade validate
 
 .DEFAULT_GOAL := help
 
@@ -47,11 +46,18 @@ upgrade: ## update the requirements/*.txt files with the latest packages satisfy
 	sed '/^[dD]jango==/d' requirements/test.txt > requirements/test.tmp
 	mv requirements/test.tmp requirements/test.txt
 
-quality: ## check coding style with pycodestyle and pylint
-	tox -e quality
+ALL_PYTHON=capa tests test_utils setup.py test_settings.py
 
-pii_check: ## check for PII annotations on all Django models
-	tox -e pii_check
+quality: selfcheck ## check coding style with pycodestyle and pylint
+	black --check $(ALL_PYTHON)
+	isort --check-only --diff --recursive $(ALL_PYTHON)
+	touch tests/__init__.py
+	pylint $(ALL_PYTHON)
+	rm tests/__init__.py
+
+format: ## run automatic code formatting
+	black $(ALL_PYTHON)
+	isort --recursive --apply $(ALL_PYTHON)
 
 requirements: ## install development environment requirements
 	pip install -qr requirements/pip-tools.txt
@@ -63,36 +69,10 @@ test: clean ## run tests in the current virtualenv
 diff_cover: test ## find diff lines that need test coverage
 	diff-cover coverage.xml
 
-test-all: quality pii_check ## run tests on every supported Python/Django combination
+test-all: quality ## run tests on every supported Python/Django combination
 	tox
 
-validate: quality pii_check test ## run tests and quality checks
+validate: quality test ## run tests and quality checks
 
 selfcheck: ## check that the Makefile is well-formed
 	@echo "The Makefile is well-formed."
-
-## Localization targets
-
-extract_translations: ## extract strings to be translated, outputting .mo files
-	rm -rf docs/_build
-	cd capa && ../manage.py makemessages -l en -v1 -d django
-	cd capa && ../manage.py makemessages -l en -v1 -d djangojs
-
-compile_translations: ## compile translation files, outputting .po files for each supported language
-	cd capa && ../manage.py compilemessages
-
-detect_changed_source_translations:
-	cd capa && i18n_tool changed
-
-pull_translations: ## pull translations from Transifex
-	tx pull -af --mode reviewed
-
-push_translations: ## push source translation files (.po) from Transifex
-	tx push -s
-
-dummy_translations: ## generate dummy translation (.po) files
-	cd capa && i18n_tool dummy
-
-build_dummy_translations: extract_translations dummy_translations compile_translations ## generate and compile dummy translation files
-
-validate_translations: build_dummy_translations detect_changed_source_translations ## validate translations

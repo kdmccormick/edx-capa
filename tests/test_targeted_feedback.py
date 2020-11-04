@@ -7,9 +7,12 @@ i.e. those with the <multiplechoiceresponse> element
 import textwrap
 import unittest
 
-# Changes formatting of empty elements; import here to avoid test order dependence
-import xmodule.modulestore.xml  # pylint: disable=unused-import
 from test_utils.helpers import load_fixture, new_loncapa_problem, test_capa_system
+
+## TODO: I commented this out when pulling edx-capa out of edx-platform.
+## If tests pass, we can safely remove it.
+# Changes formatting of empty elements; import here to avoid test order dependence
+# import xmodule.modulestore.xml
 
 
 class CapaTargetedFeedbackTest(unittest.TestCase):

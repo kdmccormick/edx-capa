@@ -6,15 +6,15 @@ import io
 import os
 import os.path
 import xml.sax.saxutils as saxutils
-
-import six
-from path import Path
+from unittest.mock import MagicMock, Mock
 
 import fs.osfs
+import six
+from mako.lookup import TemplateLookup
+from path import Path
+
 from capa.capa_problem import LoncapaProblem, LoncapaSystem
 from capa.inputtypes import Status
-from mako.lookup import TemplateLookup
-from mock import MagicMock, Mock
 
 TEST_DIR = os.path.dirname(os.path.realpath(__file__))
 

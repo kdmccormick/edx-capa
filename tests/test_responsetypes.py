@@ -11,16 +11,16 @@ import textwrap
 import unittest
 import zipfile
 from datetime import datetime
+from unittest import mock
 
+import calc
 import pyparsing
+import random2 as random
 import requests
 import six
 from pytz import UTC
 from six import text_type
 
-import calc
-import mock
-import random2 as random
 from capa.correctmap import CorrectMap
 from capa.responsetypes import LoncapaProblemError, ResponseError, StudentInputError
 from capa.util import convert_files_to_filenames
