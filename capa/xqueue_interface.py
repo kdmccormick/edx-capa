@@ -92,11 +92,6 @@ class XQueueInterface(object):
 
         Returns (error_code, msg) where error_code != 0 indicates an error
         """
-
-        # log the send to xqueue
-        header_info = json.loads(header)
-        queue_name = header_info.get("queue_name", u"")
-
         # Attempt to send to queue
         (error, msg) = self._send_to_queue(header, body, files_to_upload)
 

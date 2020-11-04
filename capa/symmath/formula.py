@@ -20,7 +20,6 @@ import string
 import unicodedata
 from copy import deepcopy
 from functools import reduce
-from xml.sax.saxutils import unescape
 
 import six
 import sympy

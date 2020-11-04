@@ -139,7 +139,7 @@ class LoncapaProblem(object):
     def __init__(
         self,
         problem_text,
-        id,
+        id,  # pylint: disable=redefined-builtin
         capa_system,
         capa_module,
         state=None,
@@ -457,7 +457,7 @@ class LoncapaProblem(object):
         # if answers include File objects, convert them to filenames.
         self.student_answers = convert_files_to_filenames(answers)
         new_cmap = self.get_grade_from_current_answers(answers)
-        self.correct_map = new_cmap
+        self.correct_map = new_cmap  # pylint: disable=attribute-defined-outside-init
         return self.correct_map
 
     def supports_rescoring(self):
@@ -861,7 +861,7 @@ class LoncapaProblem(object):
                 try:
                     # open using LoncapaSystem OSFS filestore
                     ifp = self.capa_system.filestore.open(filename)
-                except Exception as err:
+                except Exception as err:  # pylint: disable=broad-except
                     log.warning(
                         "Error %s in problem xml include: %s",
                         err,
@@ -881,7 +881,7 @@ class LoncapaProblem(object):
                 try:
                     # read in and convert to XML
                     incxml = etree.XML(ifp.read())
-                except Exception as err:
+                except Exception as err:  # pylint: disable=broad-except
                     log.warning(
                         "Error %s in problem xml include: %s",
                         err,
@@ -918,19 +918,21 @@ class LoncapaProblem(object):
         # find additional comma-separated modules search path
         path = []
 
-        for dir in raw_path:
-            if not dir:
+        for directory in raw_path:
+            if not directory:
                 continue
 
             # path is an absolute path or a path relative to the data dir
-            dir = os.path.join(self.capa_system.filestore.root_path, dir)
+            directory = os.path.join(self.capa_system.filestore.root_path, directory)
             # Check that we are within the filestore tree.
-            reldir = os.path.relpath(dir, self.capa_system.filestore.root_path)
+            reldir = os.path.relpath(directory, self.capa_system.filestore.root_path)
             if ".." in reldir:
-                log.warning("Ignoring Python directory outside of course: %r", dir)
+                log.warning(
+                    "Ignoring Python directory outside of course: %r", directory
+                )
                 continue
 
-            abs_dir = os.path.normpath(dir)
+            abs_dir = os.path.normpath(directory)
             path.append(abs_dir)
 
         return path
@@ -988,7 +990,7 @@ class LoncapaProblem(object):
                     unsafely=self.capa_system.can_execute_unsafe_code(),
                 )
             except Exception as err:
-                log.exception("Error while execing script code: " + all_code)
+                log.exception("Error while execing script code: %s", all_code)
                 msg = Text("Error while executing script code: %s" % str(err))
                 raise responsetypes.LoncapaProblemError(msg)
 

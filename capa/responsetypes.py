@@ -83,8 +83,6 @@ class LoncapaProblemError(Exception):
     Error in specification of a problem
     """
 
-    pass
-
 
 class ResponseError(Exception):
     """
@@ -92,16 +90,12 @@ class ResponseError(Exception):
     exceptions that occur when executing a custom script.
     """
 
-    pass
-
 
 class StudentInputError(Exception):
     """
     Error for an invalid student input.
     For example, submitting a string when the problem expects a number
     """
-
-    pass
 
 
 # -----------------------------------------------------------------------------
@@ -453,7 +447,6 @@ class LoncapaResponse(six.with_metaclass(abc.ABCMeta, object)):
         installing it in the new_map for display.
         Implemented by subclasses that have extended hints.
         """
-        pass
 
     def get_hints(self, student_answers, new_cmap, old_cmap):
         """
@@ -564,6 +557,7 @@ class LoncapaResponse(six.with_metaclass(abc.ABCMeta, object)):
         ):
 
             rephints = hintgroup.findall(self.hint_tag)
+            # pylint: disable=assignment-from-no-return
             hints_to_show = self.check_hint_condition(rephints, student_answers)
             # can be 'on_request' or 'always' (default)
 
@@ -589,16 +583,13 @@ class LoncapaResponse(six.with_metaclass(abc.ABCMeta, object)):
         Arguments:
          - student_answers : dict of (answer_id, answer) where answer = student input (string)
         """
-        pass
 
     @abc.abstractmethod
     def get_answers(self):
         """
         Return a dict of (answer_id, answer_text) for each answer for this question.
         """
-        pass
 
-    @abc.abstractmethod
     def check_hint_condition(self, hxml_set, student_answers):
         """
         Return a list of hints to show.
@@ -611,7 +602,6 @@ class LoncapaResponse(six.with_metaclass(abc.ABCMeta, object)):
         Returns a list of names of hint conditions which were satisfied.  Those are used
         to determine which hints are displayed.
         """
-        pass
 
     def setup_response(self):
         pass
@@ -1128,7 +1118,9 @@ class MultipleChoiceResponse(LoncapaResponse):
                 == "partial"
             ]
 
-    def get_extended_hints(self, student_answer_dict, new_cmap):
+    def get_extended_hints(
+        self, student_answer_dict, new_cmap
+    ):  # pylint: disable=arguments-differ
         """
         Extract any hints in a <choicegroup> matching the student's answers
         <choicegroup label="What is your favorite color?" type="MultipleChoice">
@@ -1416,8 +1408,8 @@ class MultipleChoiceResponse(LoncapaResponse):
             # Both to avoid double-processing, and to feed the logs.
             if self.has_answerpool():
                 return
-            self._has_answerpool = (
-                True  # pylint: disable=attribute-defined-outside-init
+            self._has_answerpool = (  # pylint: disable=attribute-defined-outside-init
+                True
             )
 
             choices_list = list(choicegroup.getchildren())
@@ -1504,8 +1496,7 @@ class MultipleChoiceResponse(LoncapaResponse):
 
 
 @registry.register
-class TrueFalseResponse(MultipleChoiceResponse):
-
+class TrueFalseResponse(MultipleChoiceResponse):  # pylint: disable=abstract-method
     human_name = _("True/False Choice")
     tags = ["truefalseresponse"]
 
@@ -4152,7 +4143,7 @@ class ChoiceTextResponse(LoncapaResponse):
             except:
                 # Use the traceback-preserving version of re-raising with a
                 # different type
-                __, __, trace = sys.exc_info()
+                _exc_type, _exc_value, trace = sys.exc_info()
                 msg = _("Could not interpret '{given_answer}' as a number.").format(
                     given_answer=html.escape(answer_value)
                 )

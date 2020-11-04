@@ -11,7 +11,7 @@ import logging
 import re
 import xml.sax.saxutils as saxutils
 
-from django.utils import html
+from django.utils.html import escape as html_escape
 from lxml import etree
 
 from .registry import TagRegistry
@@ -63,7 +63,7 @@ class MathRenderer(object):
         )
         try:
             xhtml = etree.XML(html)
-        except Exception as err:
+        except Exception as err:  # pylint: disable=broad-except
             if self.system.DEBUG:
                 # xss-lint: disable=python-interpolate-html
                 msg = '<html><div class="inline-error"><p>Error %s</p>' % (
@@ -151,7 +151,7 @@ class TargetedFeedbackRenderer(object):
                       </div>
                     </html>
                 """.format(
-                    err=html.escape(err), html=html.escape(html_str)
+                    err=html_escape(err), html=html_escape(html_str)
                 )
                 log.error(msg)
                 return etree.XML(msg)

@@ -15,7 +15,7 @@ def extract_context(xml):
     Given an xml element corresponding to the output of test_capa_system.render_template, get back the
     original context
     """
-    return eval(xml.text)
+    return eval(xml.text)  # pylint: disable=eval-used
 
 
 def quote_attr(s):

@@ -48,7 +48,7 @@ class CorrectMap(object):
         hintmode=None,
         queuestate=None,
         answervariable=None,  # pylint: disable=C0330
-        **kwargs
+        **_kwargs
     ):
 
         if answer_id is not None:
@@ -150,13 +150,17 @@ class CorrectMap(object):
         # if not correct and no points have been assigned, return 0
         return 0
 
-    def set_property(self, answer_id, property, value):
+    def set_property(
+        self, answer_id, property, value
+    ):  # pylint: disable=redefined-builtin
         if answer_id in self.cmap:
             self.cmap[answer_id][property] = value
         else:
             self.cmap[answer_id] = {property: value}
 
-    def get_property(self, answer_id, property, default=None):
+    def get_property(
+        self, answer_id, property, default=None
+    ):  # pylint: disable=redefined-builtin
         if answer_id in self.cmap:
             return self.cmap[answer_id].get(property, default)
         return default

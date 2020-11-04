@@ -12,7 +12,11 @@
 import logging
 import traceback
 
-from .formula import *
+from .formula import *  # pylint: disable=wildcard-import
+
+# TODO: This module unfortunately uses "except Excption" all over the place.
+# It should probably be cleaned up.
+# pylint: disable=broad-except
 
 log = logging.getLogger(__name__)
 
@@ -22,11 +26,15 @@ log = logging.getLogger(__name__)
 # This is one of the main entry points to call.
 
 
-def symmath_check_simple(expect, ans, adict={}, symtab=None, extra_options=None):
+def symmath_check_simple(
+    expect, ans, adict=None, symtab=None, extra_options=None
+):  # pylint: disable=unused-argument
     """
     Check a symbolic mathematical expression using sympy.
     The input is an ascii string (not MathML) converted to math using sympy.sympify.
     """
+    if adict is None:
+        adict = {}
 
     options = {"__MATRIX__": False, "__ABC__": False, "__LOWER__": False}
     if extra_options:

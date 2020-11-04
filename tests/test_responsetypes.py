@@ -1773,7 +1773,7 @@ class NumericalResponseTest(ResponseTestMixin, TestCase):
         )
 
     @mock.patch("capa.responsetypes.log")
-    def test_responsetype_i18n(self, mock_log):
+    def test_responsetype_i18n(self, _mock_log):
         """Test that LoncapaSystem has an i18n that works."""
         staff_ans = "clearly bad syntax )[+1e"
         problem = self.build_problem(answer=staff_ans, tolerance=1e-3)
@@ -1845,12 +1845,15 @@ class NumericalResponseTest(ResponseTestMixin, TestCase):
         with mock.patch("capa.responsetypes.evaluator") as mock_eval:
             for err, msg_regex in errors:
 
-                def evaluator_side_effect(_, __, math_string):
-                    """Raise an error only for the student input."""
-                    if math_string != "4":
-                        raise err
+                def make_evaluator_side_effect(err_to_raise):
+                    def evaluator_side_effect(_, __, math_string):
+                        """Raise an error only for the student input."""
+                        if math_string != "4":
+                            raise err_to_raise
 
-                mock_eval.side_effect = evaluator_side_effect
+                    return evaluator_side_effect
+
+                mock_eval.side_effect = make_evaluator_side_effect(err)
 
                 with self.assertRaisesRegex(StudentInputError, msg_regex):
                     problem.grade_answers({"1_2_1": "foobar"})
@@ -2585,7 +2588,7 @@ class CustomResponseTest(ResponseTestMixin, TestCase):
             """
         )
         capa_system = test_capa_system()
-        capa_system.get_python_lib_zip = lambda: zipstring.getvalue()
+        capa_system.get_python_lib_zip = zipstring.getvalue
         problem = self.build_problem(script=script, capa_system=capa_system)
         self.assertEqual(problem.context["num"], 17)
 

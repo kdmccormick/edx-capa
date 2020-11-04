@@ -21,8 +21,6 @@ class TemplateError(Exception):
     Error occurred while rendering a Mako template.
     """
 
-    pass
-
 
 class TemplateTestCase(unittest.TestCase):
     """

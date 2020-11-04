@@ -210,14 +210,14 @@ class CAPAProblemTest(unittest.TestCase):
         question = "Click the country which is home to the Pyramids."
         xml = """
         <problem>
-            <p>{}</p>
+            <p>{question}</p>
             <imageresponse>
-                <imageinput label="{}"
+                <imageinput label="{question}"
                 src="/static/Africa.png" width="600" height="638" rectangle="(338,98)-(412,168)"/>
             </imageresponse>
         </problem>
         """.format(
-            question, question
+            question=question
         )
         problem = new_loncapa_problem(xml)
         self.assertEqual(

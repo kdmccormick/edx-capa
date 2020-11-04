@@ -50,7 +50,7 @@ def capa_render_template(template, context):
     return get_template(template).render_unicode(**context)
 
 
-def tst_render_template(template, context):
+def tst_render_template(template, context):  # pylint: disable=unused-argument
     """
     A test version of render to template.  Renders to the repr of the context, completely ignoring
     the template name.  To make the output valid xml, quotes the content, and wraps it in a <div>
@@ -102,7 +102,7 @@ def mock_capa_module():
     capa response types needs just two things from the capa_module: location and track_function.
     """
 
-    def mock_location_text(self):
+    def mock_location_text(self):  # pylint: disable=unused-argument
         """
         Mock implementation of __unicode__ or __str__ for the module's location.
         """

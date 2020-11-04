@@ -152,7 +152,7 @@ class TestSafeExecCaching(unittest.TestCase):
 
         # The exception should be in the cache now.
         self.assertEqual(len(cache), 1)
-        cache_exc_msg, cache_globals = list(cache.values())[0]
+        cache_exc_msg, _cache_globals = list(cache.values())[0]
         self.assertIn("ZeroDivisionError", cache_exc_msg)
 
         # Change the value stored in the cache, the result should change.
@@ -162,7 +162,7 @@ class TestSafeExecCaching(unittest.TestCase):
             safe_exec(code, g, cache=DictCache(cache))
 
         self.assertEqual(len(cache), 1)
-        cache_exc_msg, cache_globals = list(cache.values())[0]
+        cache_exc_msg, _cache_globals = list(cache.values())[0]
         self.assertEqual("Hey there!", cache_exc_msg)
 
         # Change it again, now no exception!
