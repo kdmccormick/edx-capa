@@ -46,7 +46,7 @@ upgrade: ## update the requirements/*.txt files with the latest packages satisfy
 	sed '/^[dD]jango==/d' requirements/test.txt > requirements/test.tmp
 	mv requirements/test.tmp requirements/test.txt
 
-ALL_PYTHON=capa tests test_utils setup.py test_settings.py
+ALL_PYTHON=capa tests test_utils *.py
 
 quality: selfcheck ## check coding style with pycodestyle and pylint
 	black --check $(ALL_PYTHON)

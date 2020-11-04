@@ -498,7 +498,7 @@ class formula(object):
                 except Exception as err:
                     if (
                         "conversion from Presentation MathML to Content MathML was not successful"
-                        in cmml
+                        in cmml  # pylint: disable=unsupported-membership-test
                     ):
                         msg = "Illegal math expression"
                     else:
@@ -534,7 +534,7 @@ class formula(object):
 
         opdict = {
             "plus": op_plus,
-            "divide": operator.div,
+            "divide": operator.div,  # pylint: disable=no-member
             "times": op_times,
             "minus": op_minus,
             "root": sympy.sqrt,

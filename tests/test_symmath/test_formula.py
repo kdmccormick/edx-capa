@@ -7,7 +7,7 @@ import unittest
 
 from lxml import etree
 
-from . import formula
+from capa.symmath import formula
 
 
 def stripXML(xml):

@@ -19,6 +19,20 @@ from capa.inputtypes import Status
 TEST_DIR = os.path.dirname(os.path.realpath(__file__))
 
 
+class DemoSystem(object):
+    def __init__(self):
+        self.lookup = TemplateLookup(
+            directories=[Path(__file__).dirname() / "templates"]
+        )
+        self.DEBUG = True
+
+    def render_template(self, template_filename, dictionary):
+        """
+        Render the specified template with the given dictionary of context data.
+        """
+        return self.lookup.get_template(template_filename).render(**dictionary)
+
+
 def get_template(template_name):
     """
     Return template for a capa inputtype.
@@ -36,7 +50,7 @@ def capa_render_template(template, context):
     return get_template(template).render_unicode(**context)
 
 
-def tst_render_template(template, context):  # pylint: disable=unused-argument
+def tst_render_template(template, context):
     """
     A test version of render to template.  Renders to the repr of the context, completely ignoring
     the template name.  To make the output valid xml, quotes the content, and wraps it in a <div>
@@ -49,7 +63,7 @@ def calledback_url(dispatch="score_update"):
     return dispatch
 
 
-xqueue_interface = MagicMock()  # pylint: disable=invalid-name
+xqueue_interface = MagicMock()
 xqueue_interface.send_to_queue.return_value = (0, "Success!")
 
 

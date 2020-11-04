@@ -18,6 +18,15 @@ The ``README.rst`` file should then provide an overview of the code in this
 repository, including the main components and useful entry points for starting
 to understand the code in more detail.
 
+Known Issues
+------------
+
+* We are supressing a legit no-member pylint violation in capa/symmath/formula.py.
+  We are expecting `operator` to have a `div` member, which it doesn't since Python 3.
+  Was it missing from the Python 2 upgrade?
+* Can we safely remove `import xmodule.modulestore.xml` from
+  tests/test_html_render.py and tests/test_targeted_feedback.py?
+
 Documentation
 -------------
 

@@ -8,10 +8,9 @@ import io
 import json
 import os
 import textwrap
-import unittest
 import zipfile
 from datetime import datetime
-from unittest import mock
+from unittest import TestCase, mock
 
 import calc
 import pyparsing
@@ -44,7 +43,7 @@ from test_utils.response_xml_factory import (
 )
 
 
-class ResponseTest(unittest.TestCase):
+class ResponseTestMixin:
     """Base class for tests of capa responses."""
 
     xml_factory_class = None
@@ -53,15 +52,14 @@ class ResponseTest(unittest.TestCase):
     maxDiff = None
 
     def setUp(self):
-        super(ResponseTest, self).setUp()
+        super().setUp()
         if self.xml_factory_class:
-            self.xml_factory = self.xml_factory_class()
+            self.xml_factory = self.xml_factory_class()  # pylint: disable=not-callable
 
     def build_problem(self, capa_system=None, **kwargs):
         xml = self.xml_factory.build_xml(**kwargs)
         return new_loncapa_problem(xml, capa_system=capa_system)
 
-    # pylint: disable=missing-function-docstring
     def assert_grade(self, problem, submission, expected_correctness, msg=None):
         input_dict = {"1_2_1": submission}
         correct_map = problem.grade_answers(input_dict)
@@ -76,7 +74,6 @@ class ResponseTest(unittest.TestCase):
         answers = problem.get_question_answers()
         self.assertIsNotNone(answers["1_2_1"])
 
-    # pylint: disable=missing-function-docstring
     def assert_multiple_grade(self, problem, correct_answers, incorrect_answers):
         for input_str in correct_answers:
             result = problem.grade_answers({"1_2_1": input_str}).get_correctness(
@@ -125,7 +122,7 @@ class ResponseTest(unittest.TestCase):
         return str(rand.randint(0, 1e9))
 
 
-class MultiChoiceResponseTest(ResponseTest):  # pylint: disable=missing-class-docstring
+class MultiChoiceResponseTest(ResponseTestMixin, TestCase):
     xml_factory_class = MultipleChoiceResponseXMLFactory
 
     def test_multiple_choice_grade(self):
@@ -236,7 +233,7 @@ class MultiChoiceResponseTest(ResponseTest):  # pylint: disable=missing-class-do
         )
 
 
-class TrueFalseResponseTest(ResponseTest):  # pylint: disable=missing-class-docstring
+class TrueFalseResponseTest(ResponseTestMixin, TestCase):
     xml_factory_class = TrueFalseResponseXMLFactory
 
     def test_true_false_grade(self):
@@ -283,7 +280,7 @@ class TrueFalseResponseTest(ResponseTest):  # pylint: disable=missing-class-docs
         self.assert_grade(problem, ["choice_0"], "correct")
 
 
-class ImageResponseTest(ResponseTest):  # pylint: disable=missing-class-docstring
+class ImageResponseTest(ResponseTestMixin, TestCase):
     xml_factory_class = ImageResponseXMLFactory
 
     def test_rectangle_grade(self):
@@ -360,7 +357,7 @@ class ImageResponseTest(ResponseTest):  # pylint: disable=missing-class-docstrin
         self.assert_answer_format(problem)
 
 
-class SymbolicResponseTest(ResponseTest):  # pylint: disable=missing-class-docstring
+class SymbolicResponseTest(ResponseTestMixin, TestCase):
     xml_factory_class = SymbolicResponseXMLFactory
 
     def test_grade_single_input_incorrect(self):
@@ -447,7 +444,7 @@ class SymbolicResponseTest(ResponseTest):  # pylint: disable=missing-class-docst
             self.assertEqual(correct_map.get_correctness("1_2_1"), expected_correctness)
 
 
-class OptionResponseTest(ResponseTest):  # pylint: disable=missing-class-docstring
+class OptionResponseTest(ResponseTestMixin, TestCase):
     xml_factory_class = OptionResponseXMLFactory
 
     def test_grade(self):
@@ -496,7 +493,7 @@ class OptionResponseTest(ResponseTest):  # pylint: disable=missing-class-docstri
         self.assertEqual(correct_map.get_property("1_2_1", "answervariable"), "$a")
 
 
-class FormulaResponseTest(ResponseTest):
+class FormulaResponseTest(ResponseTestMixin, TestCase):
     """
     Test the FormulaResponse class
     """
@@ -647,7 +644,7 @@ class FormulaResponseTest(ResponseTest):
         )
 
 
-class StringResponseTest(ResponseTest):  # pylint: disable=missing-class-docstring
+class StringResponseTest(ResponseTestMixin, TestCase):
     xml_factory_class = StringResponseXMLFactory
 
     def test_backward_compatibility_for_multiple_answers(self):
@@ -1050,7 +1047,7 @@ class StringResponseTest(ResponseTest):  # pylint: disable=missing-class-docstri
         self.assert_grade(problem, u" ", "incorrect")
 
 
-class CodeResponseTest(ResponseTest):  # pylint: disable=missing-class-docstring
+class CodeResponseTest(ResponseTestMixin, TestCase):
     xml_factory_class = CodeResponseXMLFactory
 
     def setUp(self):
@@ -1294,7 +1291,7 @@ class CodeResponseTest(ResponseTest):  # pylint: disable=missing-class-docstring
                 )
 
 
-class ChoiceResponseTest(ResponseTest):  # pylint: disable=missing-class-docstring
+class ChoiceResponseTest(ResponseTestMixin, TestCase):
     xml_factory_class = ChoiceResponseXMLFactory
 
     def test_radio_group_grade(self):
@@ -1482,7 +1479,7 @@ class ChoiceResponseTest(ResponseTest):  # pylint: disable=missing-class-docstri
         self.assert_grade(problem, ["choice_1", "choice_3"], "incorrect")
 
 
-class NumericalResponseTest(ResponseTest):  # pylint: disable=missing-class-docstring
+class NumericalResponseTest(ResponseTestMixin, TestCase):
     xml_factory_class = NumericalResponseXMLFactory
 
     # We blend the line between integration (using evaluator) and exclusively
@@ -1873,7 +1870,7 @@ class NumericalResponseTest(ResponseTest):  # pylint: disable=missing-class-docs
         self.assertFalse(responder.validate_answer("fish"))
 
 
-class CustomResponseTest(ResponseTest):  # pylint: disable=missing-class-docstring
+class CustomResponseTest(ResponseTestMixin, TestCase):
     xml_factory_class = CustomResponseXMLFactory
 
     def test_inline_code(self):
@@ -2674,7 +2671,7 @@ class CustomResponseTest(ResponseTest):  # pylint: disable=missing-class-docstri
         self.assertEqual(correct_map.get_msg("1_2_11"), "11")
 
 
-class SchematicResponseTest(ResponseTest):
+class SchematicResponseTest(ResponseTestMixin, TestCase):
     """
     Class containing setup and tests for Schematic responsetype.
     """
@@ -2730,7 +2727,7 @@ class SchematicResponseTest(ResponseTest):
             problem.grade_answers(input_dict)
 
 
-class AnnotationResponseTest(ResponseTest):
+class AnnotationResponseTest(ResponseTestMixin, TestCase):
     xml_factory_class = AnnotationResponseXMLFactory
 
     def test_grade(self):
@@ -2775,7 +2772,7 @@ class AnnotationResponseTest(ResponseTest):
             )
 
 
-class ChoiceTextResponseTest(ResponseTest):
+class ChoiceTextResponseTest(ResponseTestMixin, TestCase):
     """
     Class containing setup and tests for ChoiceText responsetype.
     """

@@ -10,12 +10,6 @@ from ddt import data, ddt, unpack
 
 from test_utils.helpers import load_fixture, new_loncapa_problem
 
-# With the use of ddt, some of the data expected_string cases below are naturally long stretches
-# of text text without whitespace. I think it's best to leave such lines intact
-# in the test code. Therefore:
-# pylint: disable=line-too-long
-# For out many ddt data cases, prefer a compact form of { .. }
-
 
 class HintTestMixin:
     """Base class for tests of extended hinting functionality."""
@@ -23,17 +17,13 @@ class HintTestMixin:
     def correctness(self, problem_id, choice):
         """Grades the problem and returns the 'correctness' string from cmap."""
         student_answers = {problem_id: choice}
-        cmap = self.problem.grade_answers(
-            answers=student_answers
-        )  # pylint: disable=no-member
+        cmap = self.problem.grade_answers(answers=student_answers)
         return cmap[problem_id]["correctness"]
 
     def get_hint(self, problem_id, choice):
         """Grades the problem and returns its hint from cmap or the empty string."""
         student_answers = {problem_id: choice}
-        cmap = self.problem.grade_answers(
-            answers=student_answers
-        )  # pylint: disable=no-member
+        cmap = self.problem.grade_answers(answers=student_answers)
         adict = cmap.cmap.get(problem_id)
         if adict:
             return adict["msg"]
@@ -549,7 +539,7 @@ class CheckboxHintsTest(HintTestMixin, unittest.TestCase):
     )
     @unpack
     def test_checkbox_hints(self, problem_id, choice, expected_string):
-        self.maxDiff = None  # pylint: disable=invalid-name
+        self.maxDiff = None
         hint = self.get_hint(problem_id, choice)
         self.assertEqual(hint, expected_string)
 
